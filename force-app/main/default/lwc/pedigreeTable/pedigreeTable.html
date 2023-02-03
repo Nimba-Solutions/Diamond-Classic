@@ -1,0 +1,35 @@
+<template>
+    <lightning-card title="Horses">
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="slds-cell-wrap" scope="col">
+                        <div class="slds-truncate" title="Name">Horses</div>
+                    </th>
+                    <th class="slds-cell-wrap" scope="col">
+                        <div class="slds-truncate" title="Add">Actions</div>
+                    </th>
+                    <th class="slds-cell-wrap" scope="col">
+                        <div class="slds-truncate" title="Remove"></div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={data} for:item="item">
+                    <tr key={item.key}>
+                        <td class="slds-cell-wrap">
+                            <c-pedigree-table-row key={item.key}></c-pedigree-table-row>
+                        </td>
+                        <td class="slds-cell-wrap">
+                            <lightning-button-icon icon-name="utility:add" variant="border-filled" onclick={addRow}></lightning-button-icon>
+                        </td>
+                        <td class="slds-cell-wrap">
+                            <lightning-button-icon icon-name="utility:delete" variant="border-filled" onclick={removeRow} data-key={item.key}></lightning-button-icon>
+                        </td>
+                    </tr>
+                </template>
+
+            </tbody>
+        </table>
+    </lightning-card>
+</template>
