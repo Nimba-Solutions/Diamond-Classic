@@ -14,13 +14,6 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>Account.Phone</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Business_Phone.value</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
             <assignToReference>Account.Email__c</assignToReference>
             <operator>Assign</operator>
             <value>
@@ -52,7 +45,14 @@
             <assignToReference>Account.BillingPostalCode</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Account_Zip_Code</elementReference>
+                <elementReference>Account_Zip_CodeText</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Account.Phone</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Account_Business_Phone.value</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -117,18 +117,83 @@
             <assignToReference>Contact.MailingPostalCode</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Zip_Code</elementReference>
+                <elementReference>Contact_Zip_Code</elementReference>
             </value>
         </assignmentItems>
         <connector>
             <targetReference>AssignAccountValues</targetReference>
         </connector>
     </assignments>
+    <assignments>
+        <name>AssignContactValues_0</name>
+        <label>AssignContactValues</label>
+        <locationX>719</locationX>
+        <locationY>815</locationY>
+        <assignmentItems>
+            <assignToReference>Contact.FirstName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>First_Name</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Contact.LastName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Contact_Last_Name</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Contact.HomePhone</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ContactPhone.value</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Contact.Email</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ContactEmail.value</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Contact.MailingStreet</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Street</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Contact.MailingCity</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>City</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Contact.MailingStateCode</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>State</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Contact.MailingPostalCode</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Contact_Zip_Code</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>GetExistingContacts_0</targetReference>
+        </connector>
+    </assignments>
     <decisions>
         <name>DoesAccountExist</name>
         <label>DoesAccountExist</label>
-        <locationX>921</locationX>
-        <locationY>94</locationY>
+        <locationX>1075</locationX>
+        <locationY>177</locationY>
         <defaultConnector>
             <targetReference>CreateNewAccount</targetReference>
         </defaultConnector>
@@ -149,8 +214,8 @@
     <decisions>
         <name>DoesContactExist</name>
         <label>DoesContactExist?</label>
-        <locationX>727</locationX>
-        <locationY>397</locationY>
+        <locationX>863</locationX>
+        <locationY>304</locationY>
         <defaultConnector>
             <targetReference>CreateNewContact</targetReference>
         </defaultConnector>
@@ -168,6 +233,75 @@
             <label>Yes</label>
         </rules>
     </decisions>
+    <decisions>
+        <name>DoesContactExist_0</name>
+        <label>DoesContactExist?</label>
+        <locationX>839</locationX>
+        <locationY>695</locationY>
+        <defaultConnector>
+            <targetReference>CreateNewContact_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes_0_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>GetExistingContacts</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <label xsi:nil="true"/>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>DoesPersonAccountExist</name>
+        <label>DoesPersonAccountExist?</label>
+        <locationX>578</locationX>
+        <locationY>661</locationY>
+        <defaultConnector>
+            <targetReference>CreateNewPersonAccount</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes_00</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>GetPersonAccountRecord</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>IsBusinessAccount</name>
+        <label>IsBusinessAccount?</label>
+        <locationX>448</locationX>
+        <locationY>397</locationY>
+        <defaultConnector>
+            <targetReference>GetPersonAccountRecord</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Are_you_registering_as_a_business</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>AssignContactValues</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
     <dynamicChoiceSets>
         <name>StatePicklist</name>
         <dataType>Picklist</dataType>
@@ -177,7 +311,13 @@
         <picklistObject>Account</picklistObject>
     </dynamicChoiceSets>
     <environments>Default</environments>
+    <formulas>
+        <name>Person_Account_Name</name>
+        <dataType>String</dataType>
+        <expression>{!First_Name}   +&quot; &quot;+    {!Contact_Last_Name}   +&quot;&apos;s Account&quot;</expression>
+    </formulas>
     <interviewLabel>Registration {!$Flow.CurrentDateTime}</interviewLabel>
+    <isAdditionalPermissionRequiredToRun>true</isAdditionalPermissionRequiredToRun>
     <label>Registration</label>
     <processMetadataValues>
         <name>BuilderType</name>
@@ -201,25 +341,91 @@
     <recordCreates>
         <name>CreateNewAccount</name>
         <label>CreateNewAccount</label>
-        <locationX>1003</locationX>
-        <locationY>199</locationY>
+        <locationX>1210</locationX>
+        <locationY>172</locationY>
+        <connector>
+            <targetReference>Success_Page</targetReference>
+        </connector>
         <inputReference>Account</inputReference>
     </recordCreates>
     <recordCreates>
         <name>CreateNewContact</name>
         <label>CreateNewContact</label>
-        <locationX>876</locationX>
-        <locationY>393</locationY>
+        <locationX>976</locationX>
+        <locationY>300</locationY>
         <connector>
             <targetReference>GetAccount</targetReference>
         </connector>
         <inputReference>Contact</inputReference>
     </recordCreates>
+    <recordCreates>
+        <name>CreateNewContact_0</name>
+        <label>CreateNewContact</label>
+        <locationX>970</locationX>
+        <locationY>558</locationY>
+        <connector>
+            <targetReference>Success_Page_0</targetReference>
+        </connector>
+        <inputReference>Contact</inputReference>
+    </recordCreates>
+    <recordCreates>
+        <name>CreateNewPersonAccount</name>
+        <label>CreateNewPersonAccount</label>
+        <locationX>585</locationX>
+        <locationY>815</locationY>
+        <connector>
+            <targetReference>AssignContactValues_0</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>BillingCity</field>
+            <value>
+                <elementReference>City</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>BillingPostalCode</field>
+            <value>
+                <elementReference>Contact_Zip_Code</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>BillingStateCode</field>
+            <value>
+                <elementReference>State</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>BillingStreet</field>
+            <value>
+                <elementReference>Street</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Email__c</field>
+            <value>
+                <elementReference>ContactEmail.value</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Name</field>
+            <value>
+                <elementReference>Person_Account_Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Phone</field>
+            <value>
+                <elementReference>ContactPhone.value</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
     <recordLookups>
         <name>GetAccount</name>
         <label>GetAccount</label>
-        <locationX>749</locationX>
-        <locationY>92</locationY>
+        <locationX>976</locationX>
+        <locationY>175</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>DoesAccountExist</targetReference>
@@ -239,8 +445,8 @@
     <recordLookups>
         <name>GetExistingContacts</name>
         <label>GetExistingContacts</label>
-        <locationX>597</locationX>
-        <locationY>395</locationY>
+        <locationX>760</locationX>
+        <locationY>302</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>DoesContactExist</targetReference>
@@ -257,6 +463,48 @@
         <object>Contact</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <recordLookups>
+        <name>GetExistingContacts_0</name>
+        <label>GetExistingContacts</label>
+        <locationX>714</locationX>
+        <locationY>693</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>DoesContactExist_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Email</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Contact.Email</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>GetPersonAccountRecord</name>
+        <label>GetPersonAccountRecord</label>
+        <locationX>587</locationX>
+        <locationY>530</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>DoesPersonAccountExist</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Person_Account_Name</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <screens>
         <name>Account_Details</name>
         <label>Account Details</label>
@@ -266,7 +514,7 @@
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>AssignContactValues</targetReference>
+            <targetReference>IsBusinessAccount</targetReference>
         </connector>
         <fields>
             <name>Enter_Details</name>
@@ -345,12 +593,11 @@
                     <isRequired>true</isRequired>
                 </fields>
                 <fields>
-                    <name>Zip_Code</name>
-                    <dataType>Number</dataType>
+                    <name>Contact_Zip_Code</name>
+                    <dataType>String</dataType>
                     <fieldText>Zip Code</fieldText>
                     <fieldType>InputField</fieldType>
                     <isRequired>true</isRequired>
-                    <scale>0</scale>
                 </fields>
                 <inputParameters>
                     <name>width</name>
@@ -391,7 +638,7 @@
                     <isRequired>true</isRequired>
                 </fields>
                 <fields>
-                    <name>Business_Phone</name>
+                    <name>Account_Business_Phone</name>
                     <extensionName>flowruntime:phone</extensionName>
                     <fieldType>ComponentInstance</fieldType>
                     <inputParameters>
@@ -458,12 +705,11 @@
                     <isRequired>true</isRequired>
                 </fields>
                 <fields>
-                    <name>Account_Zip_Code</name>
-                    <dataType>Number</dataType>
+                    <name>Account_Zip_CodeText</name>
+                    <dataType>String</dataType>
                     <fieldText>Zip Code</fieldText>
                     <fieldType>InputField</fieldType>
                     <isRequired>true</isRequired>
-                    <scale>0</scale>
                 </fields>
                 <inputParameters>
                     <name>width</name>
@@ -487,6 +733,38 @@
             </visibilityRule>
         </fields>
         <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Success_Page</name>
+        <label>Success_Page</label>
+        <locationX>1314</locationX>
+        <locationY>172</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Success_Text</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 36px;&quot;&gt;Successfully Registered!&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;You may now navigate away from this page.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>false</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Success_Page_0</name>
+        <label>Success_Page</label>
+        <locationX>1083</locationX>
+        <locationY>558</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Success_Text_0</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 36px;&quot;&gt;Successfully Registered!&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;You may now navigate away from this page.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>false</showFooter>
         <showHeader>false</showHeader>
     </screens>
     <start>
