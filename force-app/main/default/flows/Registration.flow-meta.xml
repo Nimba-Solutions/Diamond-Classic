@@ -217,8 +217,8 @@
     <decisions>
         <name>DoesContactExist</name>
         <label>DoesContactExist?</label>
-        <locationX>1523</locationX>
-        <locationY>372</locationY>
+        <locationX>1520</locationX>
+        <locationY>371</locationY>
         <defaultConnector>
             <targetReference>CreateNewContact</targetReference>
         </defaultConnector>
@@ -412,6 +412,7 @@
         <object>Contact</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <runInMode>SystemModeWithoutSharing</runInMode>
     <screens>
         <name>Account_Details</name>
         <label>Account Details</label>
