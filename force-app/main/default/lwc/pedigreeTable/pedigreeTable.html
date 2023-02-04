@@ -1,35 +1,27 @@
 <template>
-    <lightning-card title="Horses">
+    <lightning-card title="">
         <table class="slds-table slds-table_bordered slds-table_cell-buffer">
             <thead>
                 <tr class="slds-line-height_reset">
                     <th class="slds-cell-wrap" scope="col">
-                        <div class="slds-truncate" title="Name">Horses</div>
-                    </th>
-                    <th class="slds-cell-wrap" scope="col">
-                        <div class="slds-truncate" title="Add">Actions</div>
-                    </th>
-                    <th class="slds-cell-wrap" scope="col">
-                        <div class="slds-truncate" title="Remove"></div>
+                        <div class="slds-truncate" title="Name"> </div>
                     </th>
                 </tr>
             </thead>
             <tbody>
-                <template for:each={data} for:item="item">
-                    <tr key={item.key}>
+                <template for:each={horses} for:item="horse">
+                    <tr key={horse.id}>
                         <td class="slds-cell-wrap">
-                            <c-pedigree-table-row key={item.key}></c-pedigree-table-row>
-                        </td>
-                        <td class="slds-cell-wrap">
-                            <lightning-button-icon icon-name="utility:add" variant="border-filled" onclick={addRow}></lightning-button-icon>
-                        </td>
-                        <td class="slds-cell-wrap">
-                            <lightning-button-icon icon-name="utility:delete" variant="border-filled" onclick={removeRow} data-key={item.key}></lightning-button-icon>
+                            <c-pedigree-table-row key={horse.id} horse={horse} onaddhorse={handleAddHorse} onremovehorse={handleRemoveHorse} id-index={idIndex}></c-pedigree-table-row>
                         </td>
                     </tr>
                 </template>
-
-            </tbody>
+            </tbody>  
         </table>
+        <div class="slds-m-top_large slds-m-right_large">
+            <lightning-button-icon class="slds-float--right" icon-name="utility:add" variant="border-filled" onclick={handleAddHorse}></lightning-button-icon>
+        </div>
+        </br>
+        </br>
     </lightning-card>
 </template>

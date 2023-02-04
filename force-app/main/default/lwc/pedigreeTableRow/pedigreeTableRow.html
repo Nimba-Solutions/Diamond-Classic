@@ -1,24 +1,66 @@
 <template>
-  <div class="input-fields">
-    <lightning-input type="text" label="Name" value={name} onchange={handleNameChange}></lightning-input>
-    
-    <lightning-select label="Gender" value={gender} onchange={handleGenderChange}>
-      <option value="Male">Male</option>
-      <option value="Female">Female</option>
-    </lightning-select>
 
-    <lightning-input type="date" label="Date Foaled" value={dateFoaled} onchange={handleDateFoaledChange}></lightning-input>
+  <table>
+    <tr>
+      <td>
+        <div class="input-fields">
+          <lightning-input style="max-width: 130px;" type="text" label="Name" value={horse.Name} onchange={handleOnChange} class="slds-col slds-size_1-of-2"></lightning-input>
+          <lightning-input style="max-width: 130px;" type="text" label="Reg No." value={horse.RegistrationNumber} onchange={handleOnChange} class="slds-col slds-size_1-of-2"></lightning-input>
+          <div style="max-width: 130px;" class="slds-col slds-size_1-of-2">
+            <lightning-combobox label="Gender" value={horse.Gender} options={genderOptions} onchange={handleOnChange}></lightning-combobox>
+          </div>
+          <div style="max-width: 130px;" class="slds-col slds-size_1-of-2">
+            <lightning-combobox label="Competing?" value={horse.Competing} options={boolOptions} onchange={handleOnChange}></lightning-combobox>
+          </div>
+          <div style="max-width: 130px;" class="slds-col slds-size_1-of-2">
+            <lightning-input type="date" label="Date Foaled" value={horse.DateFoaled} onchange={handleOnChange}></lightning-input>
+          </div>
+          <lightning-input style="max-width: 130px;" type="text" label="Color" value={horse.Color} onchange={handleOnChange} class="slds-col slds-size_1-of-2"></lightning-input>
 
-    <c-lookup onsearch={handleSearch} onselectionchange={handleSelectionChange}
-        label="Sire" placeholder="Search">
-    </c-lookup>
-
-    <c-lookup onsearch={handleSearch} onselectionchange={handleSelectionChange}
-        label="Dam" placeholder="Search">
-    </c-lookup>
-
-    <lightning-input type="text" label="Color" value={color} onchange={handleColorChange}></lightning-input>
-
-    <lightning-input type="text" label="Registration Number" value={registrationNumber} onchange={handleRegistrationNumberChange}></lightning-input>
-  </div>
+          <c-lookup style="max-width: 130px;"
+                    onsearch={handleSearch}
+                    onselectionchange={handleSelectionChange}
+                    label="Sire" 
+                    placeholder="Sire..."
+                    class="slds-col slds-size_1-of-2">
+          </c-lookup>
+          <c-lookup style="max-width: 130px;"
+                    onsearch={handleSearch}
+                    onselectionchange={handleSelectionChange}
+                    label="Dam" 
+                    placeholder="Dam..."
+                    class="slds-col slds-size_1-of-2">
+          </c-lookup>
+          </div>
+        </td>
+        <td>
+          <div>
+            <div>
+              <lightning-input type="checkbox" label="AQHA" uncheck> </lightning-input>
+              <lightning-input type="checkbox" label="APHA" uncheck> </lightning-input>
+            </div>
+            <div>
+              <lightning-input type="checkbox" label="APHC" uncheck> </lightning-input>
+              <lightning-input type="checkbox" label="TB" uncheck> </lightning-input>
+            </div>
+            <!-- <div>
+              <lightning-input type="checkbox" label="Other" uncheck> </lightning-input>
+              <lightning-input type="text" label="Other" value={horse.Name} onchange={handleOnChange}></lightning-input>
+            </div> -->
+          </div>
+        </td>
+        <td>
+          <div class="input-fields">
+            <lightning-file-upload label=""
+                                  accept={acceptedFormats}
+                                  onuploadfinished={handleUploadFinished}
+                                  class="slds-col slds-size_1-of-2">
+            </lightning-file-upload>
+          </div>
+        </td>
+        <td>
+            <lightning-button-icon class="slds-m-left_x_large slds-col slds-size_2-of-12" icon-name="utility:delete" variant="border-filled" onclick={removeRow} data-key={horse.id}></lightning-button-icon>
+        </td> 
+    </tr>
+  </table>
 </template>

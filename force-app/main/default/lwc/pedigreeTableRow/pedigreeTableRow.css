@@ -1,4 +1,9 @@
 .input-fields {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
+}
+.controls {
+  display: flex; 
+  align-items: flex-end;
+  width: 100%;
 }

@@ -1,39 +1,51 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, api, track, wire } from 'lwc';
+import apexSearch from '@salesforce/apex/SampleLookupController.search';
 
-export default class HorseInformationForm extends LightningElement {
-  name;
-  gender;
-  dateFoaled;
-  sireId;
-  damId;
-  color;
-  registrationNumber;
 
-  handleNameChange(event) {
-    this.name = event.target.value;
+export default class PedigreeTableRow extends LightningElement {
+  @api horse;
+  @track acceptedFormats = ['.png', '.jpg', '.jpeg'];
+  genderOptions = [
+    { label: 'Male', value: 'Male' },
+    { label: 'Female', value: 'Female' }
+  ];
+  boolOptions = [
+    { label: 'Y', value: 'Y' },
+    { label: 'N', value: 'N' }
+  ];
+
+  handleUploadFinished(event) {
+    const uploadedFiles = event.detail.files;
+    console.log('Uploaded Files: ', uploadedFiles);
   }
 
-  handleGenderChange(event) {
-    this.gender = event.target.value;
+
+  handleOnChange(event) {
+    if(event.target.type === 'checkbox') {
+      this[event.target.name] = event.target.checked;
+    } else { 
+      this[event.target.name] = event.target.value;
+    }
   }
 
-  handleDateFoaledChange(event) {
-    this.dateFoaled = event.target.value;
+  handleSearch(event) {
+    const lookupElement = event.target;
+    apexSearch(event.detail)
+        .then(results => {
+            lookupElement.setSearchResults(results);
+        })
+        .catch(error => {
+            // TODO: handle error
+        });
   }
 
-  handleSireChange(event) {
-    this.sireId = event.target.value;
-  }
 
-  handleDamChange(event) {
-    this.damId = event.target.value;
-  }
-
-  handleColorChange(event) {
-    this.color = event.target.value;
-  }
-
-  handleRegistrationNumberChange(event) {
-    this.registrationNumber = event.target.value;
+  removeRow() {
+    const removeHorseEvent = new CustomEvent('removehorse', {
+      detail: {
+        horseId: this.horse.id
+      }
+    });
+    this.dispatchEvent(removeHorseEvent);
   }
 }

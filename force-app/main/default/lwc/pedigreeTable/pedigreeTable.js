@@ -1,16 +1,45 @@
-import { LightningElement, track } from 'lwc';
-import PedigreeTableRow from './pedigreeTableRow.js';
+import { LightningElement, track, api, wire } from 'lwc';
 
 export default class PedigreeTable extends LightningElement {
-    @track data = [{ id: 1, name: 'John Doe' }];
+    @api horses = [
+        { 
+            id: 1, 
+            Name: '',
+            Gender: '',
+            DateFoaled: '',
+            Sire: '',
+            Dam: '',
+            Color: '',
+            RegistrationNumber: '',
+            AQHA: false,
+            APHA: false,
+            Competing: ''
+        }
+    ];
 
-    addRow() {
-        this.data = [...this.data, { id: this.data.length + 1, name: 'New Row' }];
+    connectedCallback() {
+        this.idIndex = this.horses.length + 1;
     }
 
-    removeRow(event) {
-        console.log("IN removeRow()");
-        const selectedId = event.currentTarget.dataset.id;
-        this.data = this.data.filter(item => item.id !== selectedId);
+
+    handleAddHorse() {
+        const newHorse = {
+            id: this.idIndex,
+            Name: '',
+            Gender: '',
+            DateFoaled: '',
+            Sire: '',
+            Dam: '',
+            Color: '',
+            RegistrationNumber: ''
+        };
+        this.horses = [...this.horses, newHorse];
+        this.idIndex++;
     }
+
+    handleRemoveHorse(event) {
+        this.horses = this.horses.filter(horse => horse.id !== event.detail.horseId);
+    }
+
+
 }
