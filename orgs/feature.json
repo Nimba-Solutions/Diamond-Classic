@@ -1,6 +1,7 @@
 {
   "orgName": "Diamond-Classic - Feature Test Org",
   "edition": "Developer",
+  "features": ["StateAndCountryPicklist"],
   "settings": {
     "lightningExperienceSettings": {
       "enableS1DesktopEnabled": true
