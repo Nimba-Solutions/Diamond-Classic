@@ -1,25 +1,4 @@
 {
   "orgName": "Diamond-Classic - Feature Test Org",
-  "edition": "Developer",
-  "features": ["StateAndCountryPicklist"],
-  "settings": {
-    "lightningExperienceSettings": {
-      "enableS1DesktopEnabled": true
-    },
-    "chatterSettings": {
-      "enableChatter": true
-    },
-    "userManagementSettings": {
-      "enableNewProfileUI": true
-    },
-    "securitySettings": {
-      "enableAdminLoginAsAnyUser": true,
-      "sessionSettings": {
-        "forceRelogin": false
-      }
-    },
-    "languageSettings": {
-      "enableTranslationWorkbench": true
-    }
-  }
+  "sourceOrg": "00DDn00000AvWk5"
 }
