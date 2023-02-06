@@ -38,28 +38,28 @@
             <assignToReference>Contact.MailingStreet</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Street</elementReference>
+                <elementReference>contactAddress.street</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>Contact.MailingCity</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>City</elementReference>
+                <elementReference>contactAddress.city</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>Contact.MailingStateCode</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>State</elementReference>
+                <elementReference>contactAddress.province</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>Contact.MailingPostalCode</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Contact_Zip_Code</elementReference>
+                <elementReference>contactAddress.postalCode</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -96,28 +96,28 @@
             <assignToReference>Account.BillingStreet</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Account_Street</elementReference>
+                <elementReference>accountAddress.street</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>Account.BillingCity</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Account_City</elementReference>
+                <elementReference>accountAddress.city</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>Account.BillingStateCode</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Account_State</elementReference>
+                <elementReference>accountAddress.province</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>Account.BillingPostalCode</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Account_Zip_CodeText</elementReference>
+                <elementReference>accountAddress.postalCode</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -134,7 +134,7 @@
     <assignments>
         <name>PersonalAccount</name>
         <label>PersonalAccount</label>
-        <locationX>618</locationX>
+        <locationX>619</locationX>
         <locationY>445</locationY>
         <assignmentItems>
             <assignToReference>Account.Name</assignToReference>
@@ -154,28 +154,28 @@
             <assignToReference>Account.BillingStreet</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Street</elementReference>
+                <elementReference>contactAddress.street</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>Account.BillingCity</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>City</elementReference>
+                <elementReference>contactAddress.city</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>Account.BillingStateCode</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>State</elementReference>
+                <elementReference>contactAddress.province</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>Account.BillingPostalCode</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Contact_Zip_Code</elementReference>
+                <elementReference>contactAddress.postalCode</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -316,59 +316,9 @@
         <locationX>1716</locationX>
         <locationY>291</locationY>
         <connector>
-            <targetReference>Success_Page_0</targetReference>
+            <targetReference>Pedigree_Table</targetReference>
         </connector>
         <inputReference>Contact</inputReference>
-    </recordCreates>
-    <recordCreates>
-        <name>CreateNewPersonAccount</name>
-        <label>CreateNewPersonAccount</label>
-        <locationX>524</locationX>
-        <locationY>561</locationY>
-        <inputAssignments>
-            <field>BillingCity</field>
-            <value>
-                <elementReference>City</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>BillingPostalCode</field>
-            <value>
-                <elementReference>Contact_Zip_Code</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>BillingStateCode</field>
-            <value>
-                <elementReference>State</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>BillingStreet</field>
-            <value>
-                <elementReference>Street</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Email__c</field>
-            <value>
-                <elementReference>ContactEmail.value</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Name</field>
-            <value>
-                <elementReference>Person_Account_Name</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Phone</field>
-            <value>
-                <elementReference>ContactPhone.value</elementReference>
-            </value>
-        </inputAssignments>
-        <object>Account</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
     <recordLookups>
         <name>GetAccount</name>
@@ -474,38 +424,18 @@
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
                 <fields>
-                    <name>spacer1</name>
-                    <fieldText>&lt;p&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Address&lt;/strong&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;﻿&lt;/span&gt;&lt;/p&gt;</fieldText>
-                    <fieldType>DisplayText</fieldType>
-                </fields>
-                <fields>
-                    <name>Street</name>
-                    <dataType>String</dataType>
-                    <fieldText>Street</fieldText>
-                    <fieldType>InputField</fieldType>
+                    <name>contactAddress</name>
+                    <extensionName>flowruntime:address</extensionName>
+                    <fieldType>ComponentInstance</fieldType>
+                    <inputParameters>
+                        <name>addressLabel</name>
+                        <value>
+                            <stringValue>Mailing Address</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
-                </fields>
-                <fields>
-                    <name>City</name>
-                    <dataType>String</dataType>
-                    <fieldText>City</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>true</isRequired>
-                </fields>
-                <fields>
-                    <name>State</name>
-                    <choiceReferences>StatePicklist</choiceReferences>
-                    <dataType>String</dataType>
-                    <fieldText>State</fieldText>
-                    <fieldType>DropdownBox</fieldType>
-                    <isRequired>true</isRequired>
-                </fields>
-                <fields>
-                    <name>Contact_Zip_Code</name>
-                    <dataType>String</dataType>
-                    <fieldText>Zip Code</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
                 <inputParameters>
                     <name>width</name>
@@ -597,38 +527,18 @@
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
                 <fields>
-                    <name>Account_Address</name>
-                    <fieldText>&lt;p&gt;&lt;strong&gt;Business Address&lt;/strong&gt;﻿&lt;/p&gt;</fieldText>
-                    <fieldType>DisplayText</fieldType>
-                </fields>
-                <fields>
-                    <name>Account_Street</name>
-                    <dataType>String</dataType>
-                    <fieldText>Street</fieldText>
-                    <fieldType>InputField</fieldType>
+                    <name>accountAddress</name>
+                    <extensionName>flowruntime:address</extensionName>
+                    <fieldType>ComponentInstance</fieldType>
+                    <inputParameters>
+                        <name>addressLabel</name>
+                        <value>
+                            <stringValue>Business Address</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
-                </fields>
-                <fields>
-                    <name>Account_City</name>
-                    <dataType>String</dataType>
-                    <fieldText>City</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>true</isRequired>
-                </fields>
-                <fields>
-                    <name>Account_State</name>
-                    <choiceReferences>StatePicklist</choiceReferences>
-                    <dataType>String</dataType>
-                    <fieldText>State</fieldText>
-                    <fieldType>DropdownBox</fieldType>
-                    <isRequired>true</isRequired>
-                </fields>
-                <fields>
-                    <name>Account_Zip_CodeText</name>
-                    <dataType>String</dataType>
-                    <fieldText>Zip Code</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
                 <inputParameters>
                     <name>width</name>
@@ -651,33 +561,29 @@
                 </conditions>
             </visibilityRule>
         </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Pedigree_Table</name>
+        <label>Pedigree Table</label>
+        <locationX>1876</locationX>
+        <locationY>291</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Success_Page_0</targetReference>
+        </connector>
         <fields>
-            <name>Account_Details_Section4</name>
-            <fieldType>RegionContainer</fieldType>
-            <fields>
-                <name>Account_Details_Section4_Column1</name>
-                <fieldType>Region</fieldType>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>12</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <isRequired>false</isRequired>
-            <regionContainerType>SectionWithoutHeader</regionContainerType>
-            <visibilityRule>
-                <conditionLogic>and</conditionLogic>
-                <conditions>
-                    <leftValueReference>Are_you_registering_your_business</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <booleanValue>true</booleanValue>
-                    </rightValue>
-                </conditions>
-            </visibilityRule>
+            <name>PedigreeTable</name>
+            <extensionName>c:pedigreeTable</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
+        <nextOrFinishButtonLabel>Submit</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
     </screens>
@@ -700,8 +606,8 @@
     <screens>
         <name>Success_Page_0</name>
         <label>Success_Page</label>
-        <locationX>1920</locationX>
-        <locationY>290</locationY>
+        <locationX>2011</locationX>
+        <locationY>291</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
