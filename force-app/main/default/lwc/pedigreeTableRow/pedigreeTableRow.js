@@ -4,6 +4,7 @@ import apexSearch from '@salesforce/apex/SampleLookupController.search';
 
 export default class PedigreeTableRow extends LightningElement {
   @api horse;
+  @api uploadedFiles = [];
   @track acceptedFormats = ['.png', '.jpg', '.jpeg'];
   genderOptions = [
     { label: 'Male', value: 'Male' },
@@ -16,7 +17,11 @@ export default class PedigreeTableRow extends LightningElement {
 
   handleUploadFinished(event) {
     const uploadedFiles = event.detail.files;
-    console.log('Uploaded Files: ', uploadedFiles);
+    uploadedFiles.forEach(file => {
+        // Use the file's Id to store it in the horse's Files array
+        this.uploadedFiles.push(file.documentId);
+    });
+    console.log('uploadedFilesId: '+ this.uploadedFiles);
   }
 
 

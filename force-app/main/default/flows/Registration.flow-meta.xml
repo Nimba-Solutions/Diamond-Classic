@@ -4,8 +4,8 @@
     <assignments>
         <name>AssignContactValues</name>
         <label>AssignContactValues</label>
-        <locationX>1247</locationX>
-        <locationY>369</locationY>
+        <locationX>1302</locationX>
+        <locationY>393</locationY>
         <assignmentItems>
             <assignToReference>Contact.FirstName</assignToReference>
             <operator>Assign</operator>
@@ -76,8 +76,8 @@
     <assignments>
         <name>BusinessAccount</name>
         <label>BusinessAccount</label>
-        <locationX>619</locationX>
-        <locationY>321</locationY>
+        <locationX>719</locationX>
+        <locationY>343</locationY>
         <assignmentItems>
             <assignToReference>Account.Name</assignToReference>
             <operator>Assign</operator>
@@ -134,7 +134,7 @@
     <assignments>
         <name>PersonalAccount</name>
         <label>PersonalAccount</label>
-        <locationX>619</locationX>
+        <locationX>715</locationX>
         <locationY>445</locationY>
         <assignmentItems>
             <assignToReference>Account.Name</assignToReference>
@@ -192,8 +192,8 @@
     <decisions>
         <name>DoesAccountExist</name>
         <label>DoesAccountExist</label>
-        <locationX>899</locationX>
-        <locationY>372</locationY>
+        <locationX>962</locationX>
+        <locationY>394</locationY>
         <defaultConnector>
             <targetReference>CreateNewAccount</targetReference>
         </defaultConnector>
@@ -217,8 +217,8 @@
     <decisions>
         <name>DoesContactExist</name>
         <label>DoesContactExist?</label>
-        <locationX>1520</locationX>
-        <locationY>371</locationY>
+        <locationX>1575</locationX>
+        <locationY>395</locationY>
         <defaultConnector>
             <targetReference>CreateNewContact</targetReference>
         </defaultConnector>
@@ -242,7 +242,7 @@
     <decisions>
         <name>IsBusinessAccount</name>
         <label>IsBusinessAccount?</label>
-        <locationX>448</locationX>
+        <locationX>544</locationX>
         <locationY>397</locationY>
         <defaultConnector>
             <targetReference>PersonalAccount</targetReference>
@@ -303,8 +303,8 @@
     <recordCreates>
         <name>CreateNewAccount</name>
         <label>CreateNewAccount</label>
-        <locationX>1081</locationX>
-        <locationY>417</locationY>
+        <locationX>1144</locationX>
+        <locationY>439</locationY>
         <connector>
             <targetReference>AssignContactValues</targetReference>
         </connector>
@@ -313,18 +313,18 @@
     <recordCreates>
         <name>CreateNewContact</name>
         <label>CreateNewContact</label>
-        <locationX>1716</locationX>
-        <locationY>291</locationY>
+        <locationX>1751</locationX>
+        <locationY>341</locationY>
         <connector>
-            <targetReference>Pedigree_Table</targetReference>
+            <targetReference>Success_Page_0</targetReference>
         </connector>
         <inputReference>Contact</inputReference>
     </recordCreates>
     <recordLookups>
         <name>GetAccount</name>
         <label>GetAccount</label>
-        <locationX>770</locationX>
-        <locationY>375</locationY>
+        <locationX>858</locationX>
+        <locationY>392</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>DoesAccountExist</targetReference>
@@ -344,8 +344,8 @@
     <recordLookups>
         <name>GetExistingContacts</name>
         <label>GetExistingContacts</label>
-        <locationX>1384</locationX>
-        <locationY>369</locationY>
+        <locationX>1439</locationX>
+        <locationY>393</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>DoesContactExist</targetReference>
@@ -366,8 +366,8 @@
     <screens>
         <name>Account_Details</name>
         <label>Account Details</label>
-        <locationX>456</locationX>
-        <locationY>215</locationY>
+        <locationX>406</locationX>
+        <locationY>395</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -565,33 +565,10 @@
         <showHeader>false</showHeader>
     </screens>
     <screens>
-        <name>Pedigree_Table</name>
-        <label>Pedigree Table</label>
-        <locationX>1876</locationX>
-        <locationY>291</locationY>
-        <allowBack>false</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <connector>
-            <targetReference>Success_Page_0</targetReference>
-        </connector>
-        <fields>
-            <name>PedigreeTable</name>
-            <extensionName>c:pedigreeTable</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <nextOrFinishButtonLabel>Submit</nextOrFinishButtonLabel>
-        <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
-    <screens>
         <name>Reject</name>
         <label>Reject</label>
-        <locationX>1719</locationX>
-        <locationY>419</locationY>
+        <locationX>1747</locationX>
+        <locationY>445</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -606,8 +583,8 @@
     <screens>
         <name>Success_Page_0</name>
         <label>Success_Page</label>
-        <locationX>2011</locationX>
-        <locationY>291</locationY>
+        <locationX>2019</locationX>
+        <locationY>341</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -620,8 +597,8 @@
         <showHeader>false</showHeader>
     </screens>
     <start>
-        <locationX>330</locationX>
-        <locationY>48</locationY>
+        <locationX>50</locationX>
+        <locationY>376</locationY>
         <connector>
             <targetReference>Account_Details</targetReference>
         </connector>
@@ -658,5 +635,13 @@
         <isInput>true</isInput>
         <isOutput>true</isOutput>
         <objectType>Horse__c</objectType>
+    </variables>
+    <variables>
+        <name>horses</name>
+        <apexClass>Horse</apexClass>
+        <dataType>Apex</dataType>
+        <isCollection>true</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
     </variables>
 </Flow>
