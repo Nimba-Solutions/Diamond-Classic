@@ -64,15 +64,15 @@ export default class PedigreeTable extends LightningElement {
         console.log("ROWS: "+ JSON.stringify(rows));
 
         // Collect data for each horse and its associated files
-        const data = [];
-        rows.forEach(row => {
-            const horse = row.horse;
-            const files = row.uploadedHorse === horse ? row.uploadedFiles.concat(this.uploadedFiles) : row.uploadedFiles;
-            console.log("About to push horse & file(s): "+ horse + " : "+ files);
-            data.push({ horse, files });
-        });
+        // const data = [];
+        // rows.forEach(row => {
+        //     const horse = row.horse;
+        //     const files = row.uploadedHorse === horse ? row.uploadedFiles.concat(this.uploadedFiles) : row.uploadedFiles;
+        //     console.log("About to push horse & file(s): "+ horse + " : "+ files);
+        //     data.push({ horse, files });
+        // });
 
-        console.log("DATA (ALL): "+ JSON.stringify(data));
+        console.log("DATA (ALL): "+ JSON.stringify(this.horses));
         
         //handle NEXT
         if (this.availableActions.find((action) => action === 'NEXT')) {
