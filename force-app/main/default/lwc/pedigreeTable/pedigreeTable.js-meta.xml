@@ -8,4 +8,9 @@
 		<target>lightning__FlowScreen</target>
 		<target>lightning__HomePage</target>
 	</targets>
+	<targetConfigs>
+		<targetConfig targets="lightning__FlowScreen">
+				<property name="horses" type="apex://Horse[]" />
+		</targetConfig>
+	</targetConfigs>
 </LightningComponentBundle>

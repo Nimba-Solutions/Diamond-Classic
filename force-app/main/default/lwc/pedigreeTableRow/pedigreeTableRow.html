@@ -4,22 +4,27 @@
     <tr>
       <td>
         <div class="input-fields">
-          <lightning-input style="max-width: 130px;" type="text" label="Name" value={horse.Name} onchange={handleOnChange} class="slds-col slds-size_1-of-2"></lightning-input>
-          <lightning-input style="max-width: 130px;" type="text" label="Reg No." value={horse.RegistrationNumber} onchange={handleOnChange} class="slds-col slds-size_1-of-2"></lightning-input>
+          <lightning-input style="max-width: 130px;" type="text" name="Name" label="Name" value={horse.Name} onchange={handleOnChange} required class="slds-col slds-size_1-of-2"></lightning-input>
+          <lightning-input style="max-width: 130px;" type="text" name="RegistrationNumber" label="Reg No." value={horse.RegistrationNumber} required onchange={handleOnChange} class="slds-col slds-size_1-of-2"></lightning-input>
+          
           <div style="max-width: 130px;" class="slds-col slds-size_1-of-2">
-            <lightning-combobox label="Gender" value={horse.Gender} options={genderOptions} onchange={handleOnChange}></lightning-combobox>
+            <lightning-combobox name="Gender" label="Gender" value={horse.Gender} options={genderOptions} onchange={handleOnChange}></lightning-combobox>
           </div>
+
           <div style="max-width: 130px;" class="slds-col slds-size_1-of-2">
-            <lightning-combobox label="Competing?" value={horse.Competing} options={boolOptions} onchange={handleOnChange}></lightning-combobox>
+            <lightning-combobox name="Competing" label="Competing?" value={horse.Competing} options={boolOptions} onchange={handleOnChange}></lightning-combobox>
           </div>
+
           <div style="max-width: 130px;" class="slds-col slds-size_1-of-2">
-            <lightning-input type="date" label="Date Foaled" value={horse.DateFoaled} onchange={handleOnChange}></lightning-input>
+            <lightning-input type="date" name="DateFoaled" label="Date Foaled" value={horse.DateFoaled} onchange={handleOnChange}></lightning-input>
           </div>
-          <lightning-input style="max-width: 130px;" type="text" label="Color" value={horse.Color} onchange={handleOnChange} class="slds-col slds-size_1-of-2"></lightning-input>
+
+          <lightning-input style="max-width: 130px;" type="text" name="Color" label="Color" value={horse.Color} onchange={handleOnChange} class="slds-col slds-size_1-of-2"></lightning-input>
 
           <c-lookup style="max-width: 130px;"
                     onsearch={handleSearch}
                     onselectionchange={handleSelectionChange}
+                    name="Sire"
                     label="Sire" 
                     placeholder="Sire..."
                     class="slds-col slds-size_1-of-2">
@@ -27,6 +32,7 @@
           <c-lookup style="max-width: 130px;"
                     onsearch={handleSearch}
                     onselectionchange={handleSelectionChange}
+                    name="Dam"
                     label="Dam" 
                     placeholder="Dam..."
                     class="slds-col slds-size_1-of-2">
@@ -36,12 +42,12 @@
         <td>
           <div>
             <div>
-              <lightning-input type="checkbox" label="AQHA" uncheck> </lightning-input>
-              <lightning-input type="checkbox" label="APHA" uncheck> </lightning-input>
+              <lightning-input name="AQHA" label="AQHA" type="checkbox" uncheck> </lightning-input>
+              <lightning-input name="APHA" label="APHA" type="checkbox" uncheck> </lightning-input>
             </div>
             <div>
-              <lightning-input type="checkbox" label="APHC" uncheck> </lightning-input>
-              <lightning-input type="checkbox" label="TB" uncheck> </lightning-input>
+              <lightning-input name="APHC" label="APHC" type="checkbox" uncheck> </lightning-input>
+              <lightning-input name="TB" type="checkbox" label="TB" uncheck> </lightning-input>
             </div>
             <!-- <div>
               <lightning-input type="checkbox" label="Other" uncheck> </lightning-input>
