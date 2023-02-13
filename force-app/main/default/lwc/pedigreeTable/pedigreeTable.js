@@ -16,21 +16,25 @@ export default class PedigreeTable extends LightningElement {
     handleAddHorse() {
         const newHorse = {
             id: this.idIndex,
-            Name: null,
-            Gender: null,
-            DateFoaled: null,
-            Sire: null,
-            Dam: null,
-            Color: null,
-            RegistrationNumber: null,
+            name: null,
+            gender: null,
+            dateFoaled: null,
+            sire: null,
+            dam: null,
+            color: null,
+            registrationNumber: null,
             AQHA: false,
             APHA: false,
-            Competing: false,
+            APHC: false,
+            TB: false,
+            other: false,
+            otherBreed: null,
+            competing: false,
             files: null
         };
         this.horses = [...this.horses, newHorse];
         this.idIndex++;
-        console.log("HORSES: " + JSON.stringify(this.horses));
+        console.log("IN LWC: New Horse Added: " + JSON.stringify(this.horses));
     }
 
 
@@ -46,7 +50,6 @@ export default class PedigreeTable extends LightningElement {
         const data = [];
         rows.forEach(row => {
             let horse = row.horse;
-            console.log("HORSE: " + JSON.stringify(horse));
             const files = row.uploadedHorse === horse ? row.uploadedFiles.concat(this.uploadedFiles) : row.uploadedFiles;
             // Stringify the horse object
             horse = JSON.stringify(horse);
@@ -61,7 +64,7 @@ export default class PedigreeTable extends LightningElement {
         
         try {
             console.log("CREATING HORSES:"+ JSON.stringify(this.horses));
-           // await createHorsesAndFiles({ horses: this.horses });
+            await createHorsesAndFiles({ horses: this.horses });
             console.log('Horses created successfully');
         } catch (error) {
             console.error('Error creating horses', error);

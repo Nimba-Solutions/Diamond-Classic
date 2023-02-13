@@ -12,19 +12,20 @@ public class Horse {
         
         for (Horse horse : horses) {
             Horse__c horseRecord = new Horse__c();
-            horseRecord.Name = horse.Name != null ? horse.Name : '';
-            horseRecord.Gender__c = horse.Gender != null ? horse.Gender : '';
-            horseRecord.Date_Foaled__c = horse.DateFoaled != null ? horse.DateFoaled : null;
-            horseRecord.Sire__c = horse.Sire != null ? horse.Sire : null;
-            horseRecord.Dam__c = horse.Dam != null ? horse.Dam : null;
-            horseRecord.Color__c = horse.Color != null ? horse.Color : '';
-            horseRecord.Registration_Number__c = horse.RegistrationNumber != null ? horse.RegistrationNumber : '';
-            horseRecord.Other__c = horse.Other == null ? false : horse.Other;
-            horseRecord.APHA__c = horse.APHA == null ? false : horse.APHA;
-            horseRecord.APHC__c = horse.APHC == null ? false : horse.APHC;
-            horseRecord.AQHA__c = horse.AQHA == null ? false : horse.AQHA;
-            horseRecord.TB__c = horse.TB == null ? false : horse.TB;
-            horseRecord.isCompeting__c = horse.Competing == null ? false : horse.Competing;
+            horseRecord.name = horse.name != null ? horse.name : '';
+            horseRecord.Gender__c = horse.gender != null ? horse.gender : '';
+            horseRecord.Date_Foaled__c = horse.dateFoaled != null ? horse.dateFoaled : null;
+            horseRecord.Sire__c = horse.sire != null ? horse.sire : '';
+            horseRecord.Dam__c = horse.dam != null ? horse.dam : '';
+            horseRecord.Color__c = horse.color != null ? horse.color : '';
+            horseRecord.Registration_Number__c = horse.registrationNumber != null ? horse.registrationNumber : '';
+            horseRecord.Other__c = horse.other != null ? horse.other : false;
+            horseRecord.APHA__c = horse.APHA != null ? horse.APHA : false;
+            horseRecord.APHC__c = horse.APHC != null ? horse.APHC : false;
+            horseRecord.AQHA__c = horse.AQHA != null ? horse.AQHA : false;
+            horseRecord.TB__c = horse.TB != null ? horse.TB : false;
+            horseRecord.isCompeting__c = horse.Competing != null ? horse.Competing : false;
+            
             
             horseRecords.add(horseRecord);
             
@@ -49,38 +50,53 @@ public class Horse {
     }
     
     @AuraEnabled public Integer id;
-    @AuraEnabled public String Name;
-    @AuraEnabled public String Gender;
-    @AuraEnabled public Date DateFoaled;
-    @AuraEnabled public String Sire;
-    @AuraEnabled public String Dam;
-    @AuraEnabled public String Color;
-    @AuraEnabled public String RegistrationNumber;
+    @AuraEnabled public String name;
+    @AuraEnabled public String gender;
+    @AuraEnabled public Date dateFoaled;
+    @AuraEnabled public String sire;
+    @AuraEnabled public String dam;
+    @AuraEnabled public String color;
+    @AuraEnabled public String registrationNumber;
     @AuraEnabled public String OtherBreed;
-    @AuraEnabled public Boolean Other;
+    @AuraEnabled public Boolean other;
     @AuraEnabled public Boolean AQHA;
     @AuraEnabled public Boolean APHA;
     @AuraEnabled public Boolean APHC;
     @AuraEnabled public Boolean TB;
-    @AuraEnabled public Boolean Competing;
+    @AuraEnabled public Boolean competing;
     @AuraEnabled public List<String> files;
     
-    public Horse(Integer id, String name, String gender, Date dateFoaled, String sire, String dam, String color, String registrationNumber, Boolean AQHA, Boolean APHA, Boolean competing, List<String> files) {
-        this.id = id;
-        this.Name = name;
-        this.Gender = gender;
-        this.DateFoaled = dateFoaled;
-        this.Sire = sire;
-        this.Dam = dam;
-        this.Color = color;
-        this.RegistrationNumber = registrationNumber;
-        this.OtherBreed = OtherBreed;
-        this.Other = Other;
-        this.AQHA = AQHA;
-        this.APHA = APHA;
-        this.APHC = APHC;
-        this.TB = TB;
-        this.Competing = competing;
-        this.files = files;
-    }
+    public Horse(Integer id, 
+                 String name, 
+                 String gender, 
+                 Date dateFoaled, 
+                 String sire, 
+                 String dam, 
+                 String color, 
+                 String registrationNumber, 
+                 String otherBreed, 
+                 Boolean other, 
+                 Boolean AQHA, 
+                 Boolean APHA, 
+                 Boolean APHC, 
+                 Boolean TB, 
+                 Boolean competing,
+                 List<String> files) {
+                     this.id = id;
+                     this.name = name;
+                     this.gender = gender;
+                     this.dateFoaled = dateFoaled;
+                     this.sire = sire;
+                     this.dam = dam;
+                     this.color = color;
+                     this.registrationNumber = registrationNumber;
+                     this.OtherBreed = otherBreed;
+                     this.other = other;
+                     this.AQHA = AQHA;
+                     this.APHA = APHA;
+                     this.APHC = APHC;
+                     this.TB = TB;
+                     this.Competing = competing;
+                     this.files = files;
+                 }
 }

@@ -4,55 +4,55 @@
     <tr>
       <td>
         <div class="input-fields">
-          <lightning-input style="max-width: 130px;" type="text" name="Name" label="Name" value={horse.Name} onchange={handleOnChange} required class="slds-col slds-size_1-of-2"></lightning-input>
-          <lightning-input style="max-width: 130px;" type="text" name="RegistrationNumber" label="Reg No." value={horse.RegistrationNumber} required onchange={handleOnChange} class="slds-col slds-size_1-of-2"></lightning-input>
+          <lightning-input style="max-width: 130px;" type="text" name="name" placeholder="Name" variant="label-hidden" value={horse.name} onchange={handleOnChange} required class="slds-col slds-size_1-of-2"></lightning-input>
+          <lightning-input style="max-width: 130px;" type="text" name="registrationNumber" placeholder="Reg No." variant="label-hidden" value={horse.registrationNumber} required onchange={handleOnChange} class="slds-col slds-size_1-of-2"></lightning-input>
           
           <div style="max-width: 130px;" class="slds-col slds-size_1-of-2">
-            <lightning-combobox name="Gender" label="Gender" value={horse.Gender} options={genderOptions} onchange={handleOnChange}></lightning-combobox>
+            <lightning-combobox name="gender" placeholder="Gender" variant="label-hidden" value={horse.gender} options={genderOptions} onchange={handleOnChange}></lightning-combobox>
           </div>
 
           <div style="max-width: 130px;" class="slds-col slds-size_1-of-2">
-            <lightning-combobox name="Competing" label="Competing?" value={horse.Competing} options={boolOptions} onchange={handleOnChange}></lightning-combobox>
+            <lightning-combobox name="competing" variant="label-hidden" value={horse.competing} options={boolOptions} onchange={handleOnChange}></lightning-combobox>
           </div>
 
           <div style="max-width: 130px;" class="slds-col slds-size_1-of-2">
-            <lightning-input type="date" name="DateFoaled" label="Date Foaled" value={horse.DateFoaled} onchange={handleOnChange}></lightning-input>
+            <lightning-input type="date" name="dateFoaled" placeholder="Date Foaled" variant="label-hidden" value={horse.dateFoaled} onchange={handleOnChange}></lightning-input>
           </div>
 
-          <lightning-input style="max-width: 130px;" type="text" name="Color" label="Color" value={horse.Color} onchange={handleOnChange} class="slds-col slds-size_1-of-2"></lightning-input>
+          <lightning-input style="max-width: 130px;" type="text" name="color" placeholder="Color" variant="label-hidden" value={horse.color} onchange={handleOnChange} class="slds-col slds-size_1-of-2"></lightning-input>
 
           <c-lookup style="max-width: 130px;"
                     onsearch={handleSearch}
                     onselectionchange={handleSelectionChange}
-                    name="Sire"
-                    label="Sire" 
+                    name="sire"
                     placeholder="Sire..."
-                    class="slds-col slds-size_1-of-2">
+                    class="sire">
           </c-lookup>
           <c-lookup style="max-width: 130px;"
                     onsearch={handleSearch}
                     onselectionchange={handleSelectionChange}
-                    name="Dam"
-                    label="Dam" 
+                    name="dam"
                     placeholder="Dam..."
-                    class="slds-col slds-size_1-of-2">
+                    class="dam">
           </c-lookup>
+        </div>
+      </td>
+        <td style="vertical-align:top;">
+          <div>
+            <div>
+              <lightning-input name="AQHA" label="AQHA" type="checkbox" onchange={handleOnChange} uncheck> </lightning-input>
+              <lightning-input name="APHA" label="APHA" type="checkbox" onchange={handleOnChange} uncheck> </lightning-input>
+              <lightning-input name="APHC" label="APHC" type="checkbox" onchange={handleOnChange} uncheck> </lightning-input>
+              <lightning-input name="TB" label="TB" type="checkbox" onchange={handleOnChange} uncheck> </lightning-input>
+            </div>
           </div>
         </td>
         <td>
           <div>
             <div>
-              <lightning-input name="AQHA" label="AQHA" type="checkbox" uncheck> </lightning-input>
-              <lightning-input name="APHA" label="APHA" type="checkbox" uncheck> </lightning-input>
+              <lightning-input type="checkbox" label="Other" name="other" value={horse.other} onchange={handleOnChange} uncheck> </lightning-input>
+              <lightning-input type="text" label="Other" name="otherBreed" variant="label-hidden" value={horse.otherBreed} onchange={handleOnChange}></lightning-input>
             </div>
-            <div>
-              <lightning-input name="APHC" label="APHC" type="checkbox" uncheck> </lightning-input>
-              <lightning-input name="TB" type="checkbox" label="TB" uncheck> </lightning-input>
-            </div>
-            <!-- <div>
-              <lightning-input type="checkbox" label="Other" uncheck> </lightning-input>
-              <lightning-input type="text" label="Other" value={horse.Name} onchange={handleOnChange}></lightning-input>
-            </div> -->
           </div>
         </td>
         <td>

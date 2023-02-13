@@ -49,7 +49,7 @@
             <assignToReference>ContentDocumentLink.LinkedEntityId</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>lwc_horses.RegistrationNumber</elementReference>
+                <elementReference>loop_horses.RegistrationNumber</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -81,69 +81,85 @@
             <assignToReference>HorseRecord.Name</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>lwc_horses.Name</elementReference>
+                <elementReference>loop_horses.Name</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>HorseRecord.Registration_Number__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>lwc_horses.RegistrationNumber</elementReference>
+                <elementReference>loop_horses.RegistrationNumber</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>HorseRecord.APHA__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>lwc_horses.APHA</elementReference>
+                <elementReference>loop_horses.APHA</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>HorseRecord.APHC__c</assignToReference>
             <operator>Assign</operator>
+            <value>
+                <elementReference>loop_horses.APHC</elementReference>
+            </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>HorseRecord.AQHA__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>lwc_horses.AQHA</elementReference>
+                <elementReference>loop_horses.AQHA</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>HorseRecord.TB__c</assignToReference>
             <operator>Assign</operator>
+            <value>
+                <elementReference>loop_horses.TB</elementReference>
+            </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>HorseRecord.Gender__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>lwc_horses.Gender</elementReference>
+                <elementReference>loop_horses.Gender</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>HorseRecord.Date_Foaled__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>lwc_horses.DateFoaled</elementReference>
+                <elementReference>loop_horses.DateFoaled</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>HorseRecord.Color__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>lwc_horses.Color</elementReference>
+                <elementReference>loop_horses.Color</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>HorseRecord.Sire__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>lwc_horses.Sire</elementReference>
+                <elementReference>fxSireID</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>HorseRecord.Dam__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>fxDamId</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>HorseRecord.IsCompeting__c</assignToReference>
             <operator>Assign</operator>
+            <value>
+                <elementReference>loop_horses.Competing</elementReference>
+            </value>
         </assignmentItems>
         <connector>
             <targetReference>fileIds</targetReference>
@@ -162,7 +178,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>lwc_horses</targetReference>
+            <targetReference>loop_horses</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -237,6 +253,34 @@
                 <booleanValue>false</booleanValue>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>horse.APHC</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>horse.TB</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>horse.Other</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>horse.Competing</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>add_to_collection</targetReference>
         </connector>
@@ -283,6 +327,24 @@
         </rules>
     </decisions>
     <environments>Default</environments>
+    <formulas>
+        <name>fxDamId</name>
+        <dataType>String</dataType>
+        <expression>IF(
+NOT( ISNULL( {!loop_horses.Dam} )),
+{!loop_horses.Dam},
+null
+)</expression>
+    </formulas>
+    <formulas>
+        <name>fxSireID</name>
+        <dataType>String</dataType>
+        <expression>IF(
+NOT( ISNULL( {!loop_horses.Sire} )),
+{!loop_horses.Sire},
+null
+)</expression>
+    </formulas>
     <interviewLabel>Pedigree Table {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Pedigree Table</label>
     <loops>
@@ -290,7 +352,7 @@
         <label>fileIds</label>
         <locationX>1002</locationX>
         <locationY>646</locationY>
-        <collectionReference>lwc_horses.files</collectionReference>
+        <collectionReference>loop_horses.files</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
             <targetReference>define_content_document_link</targetReference>
@@ -328,8 +390,8 @@
         </noMoreValuesConnector>
     </loops>
     <loops>
-        <name>lwc_horses</name>
-        <label>lwc horses</label>
+        <name>loop_horses</name>
+        <label>loop horses</label>
         <locationX>998</locationX>
         <locationY>441</locationY>
         <collectionReference>horses</collectionReference>
@@ -387,7 +449,7 @@
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
-            <targetReference>lwc_horses</targetReference>
+            <targetReference>loop_horses</targetReference>
         </connector>
         <fields>
             <name>debugg</name>
@@ -406,7 +468,7 @@
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
-            <targetReference>lwc_horses</targetReference>
+            <targetReference>loop_horses</targetReference>
         </connector>
         <fields>
             <name>pedigreeTable</name>
@@ -435,7 +497,7 @@
             <targetReference>placeholderHorse1</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>ContentDocumentLink</name>
         <dataType>SObject</dataType>
