@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>56.0</apiVersion>
     <assignments>
         <name>AssignContactValues</name>
         <label>AssignContactValues</label>
         <locationX>1302</locationX>
-        <locationY>393</locationY>
+        <locationY>392</locationY>
         <assignmentItems>
             <assignToReference>Contact.FirstName</assignToReference>
             <operator>Assign</operator>
@@ -49,7 +49,7 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>Contact.MailingStateCode</assignToReference>
+            <assignToReference>Contact.MailingState</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>contactAddress.province</elementReference>
@@ -107,7 +107,7 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>Account.BillingStateCode</assignToReference>
+            <assignToReference>Account.BillingState</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>accountAddress.province</elementReference>
@@ -121,6 +121,13 @@
             </value>
         </assignmentItems>
         <assignmentItems>
+            <assignToReference>Account.BillingCountry</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>accountAddress.country</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
             <assignToReference>Account.Phone</assignToReference>
             <operator>Assign</operator>
             <value>
@@ -129,6 +136,45 @@
         </assignmentItems>
         <connector>
             <targetReference>GetAccount</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>collectHorses</name>
+        <label>Collect Horses</label>
+        <locationX>2119</locationX>
+        <locationY>569</locationY>
+        <assignmentItems>
+            <assignToReference>Affiliations</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Affiliation</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>loopHorses</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>defineAffiliations</name>
+        <label>Affiliations</label>
+        <locationX>1992</locationX>
+        <locationY>569</locationY>
+        <assignmentItems>
+            <assignToReference>Affiliation.Account__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Account.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Affiliation.Horse__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>loopHorses.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>collectHorses</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -165,7 +211,7 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>Account.BillingStateCode</assignToReference>
+            <assignToReference>Account.BillingState</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>contactAddress.province</elementReference>
@@ -183,6 +229,13 @@
             <operator>Assign</operator>
             <value>
                 <elementReference>ContactPhone.value</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Account.BillingCountry</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>contactAddress.country</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -265,14 +318,6 @@
         </rules>
     </decisions>
     <description>A basic registration form for Farms and Stallion Stations</description>
-    <dynamicChoiceSets>
-        <name>StatePicklist</name>
-        <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
-        <picklistField>BillingStateCode</picklistField>
-        <picklistObject>Account</picklistObject>
-    </dynamicChoiceSets>
     <environments>Default</environments>
     <formulas>
         <name>Person_Account_Name</name>
@@ -282,6 +327,20 @@
     <interviewLabel>Registration {!$Flow.CurrentDateTime}</interviewLabel>
     <isAdditionalPermissionRequiredToRun>true</isAdditionalPermissionRequiredToRun>
     <label>Registration</label>
+    <loops>
+        <name>loopHorses</name>
+        <label>loopHorses</label>
+        <locationX>2053</locationX>
+        <locationY>389</locationY>
+        <collectionReference>Pedigree_Table.horseRecords</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>defineAffiliations</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>createAffiliations</targetReference>
+        </noMoreValuesConnector>
+    </loops>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -302,6 +361,16 @@
     </processMetadataValues>
     <processType>Flow</processType>
     <recordCreates>
+        <name>createAffiliations</name>
+        <label>Affiliations</label>
+        <locationX>2225</locationX>
+        <locationY>388</locationY>
+        <connector>
+            <targetReference>Welcome_Email</targetReference>
+        </connector>
+        <inputReference>Affiliations</inputReference>
+    </recordCreates>
+    <recordCreates>
         <name>CreateNewAccount</name>
         <label>CreateNewAccount</label>
         <locationX>1144</locationX>
@@ -317,7 +386,7 @@
         <locationX>1751</locationX>
         <locationY>341</locationY>
         <connector>
-            <targetReference>Success_Page_0</targetReference>
+            <targetReference>Pedigree_Table</targetReference>
         </connector>
         <inputReference>Contact</inputReference>
     </recordCreates>
@@ -338,7 +407,7 @@
                 <elementReference>Account.Email__c</elementReference>
             </value>
         </filters>
-        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>Account</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
@@ -367,8 +436,8 @@
     <screens>
         <name>Account_Details</name>
         <label>Account Details</label>
-        <locationX>406</locationX>
-        <locationY>395</locationY>
+        <locationX>407</locationX>
+        <locationY>375</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -432,6 +501,18 @@
                         <name>addressLabel</name>
                         <value>
                             <stringValue>Mailing Address</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>inputProvinceOptions</name>
+                        <value>
+                            <stringValue>Alabama, Alaska, American Samoa, Arizona, Arkansas, California, Colorado, Connecticut, Delaware, District of Columbia, Florida, Georgia, Guam, Hawaii, Idaho, Illinois, Indiana, Iowa, Kansas, Kentucky, Louisiana, Maine, Maryland, Massachusetts, Michigan, Minnesota, Minor Outlying Islands, Mississippi, Missouri, Montana, Nebraska, Nevada, New Hampshire, New Jersey, New Mexico, New York, North Carolina, North Dakota, Northern Mariana Islands, Ohio, Oklahoma, Oregon, Pennsylvania, Puerto Rico, Rhode Island, South Carolina, South Dakota, Tennessee, Texas, U.S. Virgin Islands, Utah, Vermont, Virginia, Washington, West Virginia, Wisconsin, Wyoming</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>inputCountryOptions</name>
+                        <value>
+                            <stringValue>USA</stringValue>
                         </value>
                     </inputParameters>
                     <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
@@ -537,6 +618,210 @@
                             <stringValue>Business Address</stringValue>
                         </value>
                     </inputParameters>
+                    <inputParameters>
+                        <name>country</name>
+                        <value>
+                            <stringValue>Untied States</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>12</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithHeader</regionContainerType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>Are_you_registering_your_business</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <booleanValue>true</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Account_Details_0</name>
+        <label>Account Details</label>
+        <locationX>408</locationX>
+        <locationY>542</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Personal_Information_0</name>
+            <fieldText>Personal Information</fieldText>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>Personal_Information_0_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>First_Name_0</name>
+                    <dataType>String</dataType>
+                    <fieldText>First Name</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <isRequired>true</isRequired>
+                </fields>
+                <fields>
+                    <name>Contact_Last_Name_0</name>
+                    <dataType>String</dataType>
+                    <fieldText>Last Name</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <isRequired>true</isRequired>
+                </fields>
+                <fields>
+                    <name>ContactPhone_0</name>
+                    <extensionName>flowruntime:phone</extensionName>
+                    <fieldType>ComponentInstance</fieldType>
+                    <inputParameters>
+                        <name>required</name>
+                        <value>
+                            <booleanValue>true</booleanValue>
+                        </value>
+                    </inputParameters>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                </fields>
+                <fields>
+                    <name>ContactEmail_0</name>
+                    <extensionName>flowruntime:email</extensionName>
+                    <fieldType>ComponentInstance</fieldType>
+                    <inputParameters>
+                        <name>required</name>
+                        <value>
+                            <booleanValue>true</booleanValue>
+                        </value>
+                    </inputParameters>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>12</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithHeader</regionContainerType>
+        </fields>
+        <fields>
+            <name>contactAddress0</name>
+            <extensionName>flowruntime:address</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>Account_Details_0_Section2</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>Account_Details_0_Section2_Column1</name>
+                <fieldType>Region</fieldType>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>12</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
+        </fields>
+        <fields>
+            <name>Are_you_registering_your_business_0</name>
+            <dataType>Boolean</dataType>
+            <fieldText>Are you registering your business?</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Business_Information_0</name>
+            <fieldText>Business Information</fieldText>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>Business_Information_0_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>Business_Name_0</name>
+                    <dataType>String</dataType>
+                    <fieldText>Business Name</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <isRequired>true</isRequired>
+                </fields>
+                <fields>
+                    <name>Account_Business_Phone_0</name>
+                    <extensionName>flowruntime:phone</extensionName>
+                    <fieldType>ComponentInstance</fieldType>
+                    <inputParameters>
+                        <name>label</name>
+                        <value>
+                            <stringValue>Business Phone</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>required</name>
+                        <value>
+                            <booleanValue>true</booleanValue>
+                        </value>
+                    </inputParameters>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                </fields>
+                <fields>
+                    <name>Account_Email_0</name>
+                    <extensionName>flowruntime:email</extensionName>
+                    <fieldType>ComponentInstance</fieldType>
+                    <inputParameters>
+                        <name>required</name>
+                        <value>
+                            <booleanValue>true</booleanValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>label</name>
+                        <value>
+                            <stringValue>Business Email</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                </fields>
+                <fields>
+                    <name>accountAddress_0</name>
+                    <extensionName>flowruntime:address</extensionName>
+                    <fieldType>ComponentInstance</fieldType>
+                    <inputParameters>
+                        <name>addressLabel</name>
+                        <value>
+                            <stringValue>Business Address</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>country</name>
+                        <value>
+                            <stringValue>Untied States</stringValue>
+                        </value>
+                    </inputParameters>
                     <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -584,8 +869,8 @@
     <screens>
         <name>Success_Page_0</name>
         <label>Success_Page</label>
-        <locationX>2019</locationX>
-        <locationY>341</locationY>
+        <locationX>2465</locationX>
+        <locationY>388</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -605,6 +890,46 @@
         </connector>
     </start>
     <status>Active</status>
+    <subflows>
+        <name>Pedigree_Table</name>
+        <label>Pedigree Table</label>
+        <locationX>1905</locationX>
+        <locationY>389</locationY>
+        <connector>
+            <targetReference>loopHorses</targetReference>
+        </connector>
+        <flowName>Pedigree_Table</flowName>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </subflows>
+    <subflows>
+        <name>Welcome_Email</name>
+        <label>Welcome Email</label>
+        <locationX>2342</locationX>
+        <locationY>388</locationY>
+        <connector>
+            <targetReference>Success_Page_0</targetReference>
+        </connector>
+        <flowName>WelcomeEmail</flowName>
+        <inputAssignments>
+            <name>Contact</name>
+            <value>
+                <elementReference>Contact</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>HorseDatatable</name>
+            <value>
+                <elementReference>Pedigree_Table.horseRecords</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>WelcomeSubject</name>
+            <value>
+                <stringValue>Welcome to The Diamond Classic!</stringValue>
+            </value>
+        </inputAssignments>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </subflows>
     <variables>
         <name>Account</name>
         <dataType>SObject</dataType>
@@ -612,6 +937,22 @@
         <isInput>true</isInput>
         <isOutput>true</isOutput>
         <objectType>Account</objectType>
+    </variables>
+    <variables>
+        <name>Affiliation</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Affiliation__c</objectType>
+    </variables>
+    <variables>
+        <name>Affiliations</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Affiliation__c</objectType>
     </variables>
     <variables>
         <name>Contact</name>
