@@ -17,8 +17,8 @@ export default class PedigreeTableRow extends LightningElement {
     { label: 'Mare', value: 'Mare' }
   ];
   boolOptions = [
-    { label: 'Competing', value: true },
-    { label: 'Not Competing', value: false }
+    { label: 'Competing', value: 'Competing' },
+    { label: 'Not Competing', value: 'Not Competing' }
   ];
   connectedCallback() {
     this.template.addEventListener('recordidselected', this.handleRecordIdSelected.bind(this));

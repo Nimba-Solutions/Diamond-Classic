@@ -17,12 +17,12 @@ export default class PedigreeTable extends LightningElement {
         const newHorse = {
             id: this.idIndex,
             name: null,
+            registrationNumber: null,
             gender: null,
             dateFoaled: null,
-            sire: null,
-            dam: null,
+            sire: "",
+            dam: "",
             color: null,
-            registrationNumber: null,
             AQHA: false,
             APHA: false,
             APHC: false,
@@ -64,7 +64,7 @@ export default class PedigreeTable extends LightningElement {
         
         try {
             console.log("CREATING HORSES:"+ JSON.stringify(this.horses));
-            await createHorsesAndFiles({ horses: this.horses });
+            //await createHorsesAndFiles({ horses: this.horses });
             console.log('Horses created successfully');
         } catch (error) {
             console.error('Error creating horses', error);

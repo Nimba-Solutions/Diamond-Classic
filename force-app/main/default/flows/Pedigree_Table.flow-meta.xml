@@ -161,6 +161,20 @@
                 <elementReference>loop_horses.Competing</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>HorseRecord.Other__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>loop_horses.Other</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>HorseRecord.Other_Breed_Association__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>loop_horses.otherBreed</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>fileIds</targetReference>
         </connector>

@@ -11,9 +11,9 @@
             <lightning-combobox name="gender" placeholder="Gender" variant="label-hidden" value={horse.gender} options={genderOptions} onchange={handleOnChange}></lightning-combobox>
           </div>
 
-          <div style="max-width: 130px;" class="slds-col slds-size_1-of-2">
+          <!-- <div style="max-width: 130px;" class="slds-col slds-size_1-of-2">
             <lightning-combobox name="competing" variant="label-hidden" value={horse.competing} options={boolOptions} onchange={handleOnChange}></lightning-combobox>
-          </div>
+          </div> -->
 
           <div style="max-width: 130px;" class="slds-col slds-size_1-of-2">
             <lightning-input type="date" name="dateFoaled" placeholder="Date Foaled" variant="label-hidden" value={horse.dateFoaled} onchange={handleOnChange}></lightning-input>
@@ -50,6 +50,8 @@
         <td>
           <div>
             <div>
+              <lightning-input type="checkbox" label="Competing?" name="competing" value={horse.competing} onchange={handleOnChange} uncheck> </lightning-input>
+              </br>
               <lightning-input type="checkbox" label="Other" name="other" value={horse.other} onchange={handleOnChange} uncheck> </lightning-input>
               <lightning-input type="text" label="Other" name="otherBreed" variant="label-hidden" value={horse.otherBreed} onchange={handleOnChange}></lightning-input>
             </div>
