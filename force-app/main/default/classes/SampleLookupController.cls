@@ -4,6 +4,7 @@ public with sharing class SampleLookupController {
     @AuraEnabled(cacheable=true scope='global')
     public static List<LookupSearchResult> search(String searchTerm, List<String> selectedIds) {
         system.debug('IN SEARCH()');
+        system.debug('search term: '+ searchTerm);
         // Prepare query parameters
         searchTerm += '*';
 
@@ -12,78 +13,24 @@ public with sharing class SampleLookupController {
             FIND :searchTerm
             IN ALL FIELDS
             RETURNING
-                Account(Id, Name, BillingCity WHERE id NOT IN :selectedIds),
-                Opportunity(Id, Name, StageName WHERE id NOT IN :selectedIds)
+                Horse__c(Id, Name, Registration_Number__c, Gender__c WHERE id NOT IN :selectedIds)
             LIMIT :MAX_RESULTS
         ];
 
         // Prepare results
         List<LookupSearchResult> results = new List<LookupSearchResult>();
 
-        // Extract Accounts & convert them into LookupSearchResult
-        String accountIcon = 'standard:account';
-        Account[] accounts = (List<Account>) searchResults[0];
-        for (Account account : accounts) {
-            String subtitle = account.BillingCity == null ? 'Account' : 'Account • ' + account.BillingCity;
-            results.add(new LookupSearchResult(account.Id, 'Account', accountIcon, account.Name, subtitle));
-        }
-
-        // Extract Opportunities & convert them into LookupSearchResult
-        String opptyIcon = 'standard:opportunity';
-        Opportunity[] opptys = (List<Opportunity>) searchResults[1];
-        for (Opportunity oppty : opptys) {
-            results.add(
-                new LookupSearchResult(
-                    oppty.Id,
-                    'Opportunity',
-                    opptyIcon,
-                    oppty.Name,
-                    'Opportunity • ' + oppty.StageName
-                )
-            );
+        // Extract Horses & convert them into LookupSearchResult
+        String horseIcon = 'custom:custom47';
+        Horse__c[] horses = (List<Horse__c>) searchResults[0];
+        for (Horse__c horse : horses) {
+            String subtitle = horse.Gender__c + ' • ' + horse.Registration_Number__c;
+            results.add(new LookupSearchResult(horse.Id, 'Horse', horseIcon, horse.Name, subtitle));
         }
 
         // Optionnaly sort all results on title
         results.sort();
 
-        return results;
-    }
-
-    @AuraEnabled(cacheable=true scope='global')
-    public static List<LookupSearchResult> getRecentlyViewed() {
-        List<LookupSearchResult> results = new List<LookupSearchResult>();
-        // Get recently viewed records of type Account or Opportunity
-        List<RecentlyViewed> recentRecords = [
-            SELECT Id, Name, Type
-            FROM RecentlyViewed
-            WHERE Type = 'Account' OR Type = 'Opportunity'
-            ORDER BY LastViewedDate DESC
-            LIMIT 5
-        ];
-        // Convert recent records into LookupSearchResult
-        for (RecentlyViewed recentRecord : recentRecords) {
-            if (recentRecord.Type == 'Account') {
-                results.add(
-                    new LookupSearchResult(
-                        recentRecord.Id,
-                        'Account',
-                        'standard:account',
-                        recentRecord.Name,
-                        'Account • ' + recentRecord.Name
-                    )
-                );
-            } else {
-                results.add(
-                    new LookupSearchResult(
-                        recentRecord.Id,
-                        'Opportunity',
-                        'standard:opportunity',
-                        recentRecord.Name,
-                        'Opportunity • ' + recentRecord.Name
-                    )
-                );
-            }
-        }
         return results;
     }
 }

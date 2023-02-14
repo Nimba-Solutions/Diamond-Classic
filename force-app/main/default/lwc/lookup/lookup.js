@@ -147,10 +147,12 @@ export default class Lookup extends NavigationMixin(LightningElement) {
         });
     }
     handleSelectionChange(event) {
+        console.log("handleSelectionChange");
     // Get the selected ids from the event (same interface as lightning-input-field)
     const selectedIds = event.detail;
     // Or, get the selection objects with ids, labels, icons...
     const selection = event.target.getSelection();
+    
     // TODO: do something with the lookup selection
     }
 
@@ -161,7 +163,6 @@ export default class Lookup extends NavigationMixin(LightningElement) {
     }
 
     // INTERNAL FUNCTIONS
-
     updateSearchTerm(newSearchTerm) {
         this._searchTerm = newSearchTerm;
 
@@ -284,6 +285,13 @@ export default class Lookup extends NavigationMixin(LightningElement) {
 
         // Process selection update
         this.processSelectionUpdate(true);
+
+        // Get the name attribute of the instance
+        const name = this.getAttribute('class');
+        console.log("class: " + name);
+
+        // Fire custom event with recordId and name
+        this.dispatchEvent(new CustomEvent('recordidselected', { detail: { recordId, name }, bubbles: true }));
     }
 
     handleComboboxMouseDown(event) {
