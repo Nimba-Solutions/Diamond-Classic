@@ -889,7 +889,7 @@
             <targetReference>Account_Details</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <subflows>
         <name>Pedigree_Table</name>
         <label>Pedigree Table</label>
