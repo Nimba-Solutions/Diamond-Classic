@@ -1,0 +1,145 @@
+Insert Account:
+  sf_object: Account
+  table: Account
+  fields:
+  - Description
+  - Fax
+  - Name
+  - AccountNumber
+  - Phone
+  - Rating
+  - Site
+  - AccountSource
+  - Type
+  - AnnualRevenue
+  - BillingCity
+  - BillingCountry
+  - BillingCountryCode
+  - BillingGeocodeAccuracy
+  - BillingLatitude
+  - BillingLongitude
+  - BillingState
+  - BillingStateCode
+  - BillingStreet
+  - BillingPostalCode
+  - Jigsaw
+  - Email__c
+  - NumberOfEmployees
+  - Industry
+  - Ownership
+  - ShippingCity
+  - ShippingCountry
+  - ShippingCountryCode
+  - ShippingGeocodeAccuracy
+  - ShippingLatitude
+  - ShippingLongitude
+  - ShippingState
+  - ShippingStateCode
+  - ShippingStreet
+  - ShippingPostalCode
+  - Sic
+  - SicDesc
+  - TickerSymbol
+  - Website
+  lookups:
+    ParentId:
+      table: Account
+      key_field: ParentId
+      after: Insert Account
+Insert Individual:
+  sf_object: Individual
+  table: Individual
+  fields:
+  - LastName
+  - Name
+  - CanStorePiiElsewhere
+  - HasOptedOutGeoTracking
+  - HasOptedOutProcessing
+  - HasOptedOutProfiling
+  - HasOptedOutSolicit
+  - HasOptedOutTracking
+  - IsHomeOwner
+  - SendIndividualData
+  - ShouldForget
+Insert Horse__c:
+  sf_object: Horse__c
+  table: Horse__c
+  fields:
+  - APHA__c
+  - APHC__c
+  - AQHA__c
+  - Color__c
+  - Date_Foaled__c
+  - Gender__c
+  - Name
+  - IsCompeting__c
+  - Other__c
+  - Other_Breed_Association__c
+  - Registration_Number__c
+  - TB__c
+  lookups:
+    Dam__c:
+      table: Horse__c
+      key_field: Dam__c
+      after: Insert Horse__c
+    Sire__c:
+      table: Horse__c
+      key_field: Sire__c
+      after: Insert Horse__c
+Insert Contact:
+  sf_object: Contact
+  table: Contact
+  fields:
+  - AssistantName
+  - AssistantPhone
+  - Birthdate
+  - Fax
+  - Phone
+  - Description
+  - Jigsaw
+  - Department
+  - DoNotCall
+  - Email
+  - EmailBouncedDate
+  - EmailBouncedReason
+  - HasOptedOutOfEmail
+  - HasOptedOutOfFax
+  - FirstName
+  - HomePhone
+  - LastName
+  - LeadSource
+  - MailingCity
+  - MailingCountry
+  - MailingCountryCode
+  - MailingGeocodeAccuracy
+  - MailingLatitude
+  - MailingLongitude
+  - MailingState
+  - MailingStateCode
+  - MailingStreet
+  - MailingPostalCode
+  - MobilePhone
+  - OtherCity
+  - OtherCountry
+  - OtherCountryCode
+  - OtherGeocodeAccuracy
+  - OtherLatitude
+  - OtherLongitude
+  - OtherPhone
+  - OtherState
+  - OtherStateCode
+  - OtherStreet
+  - OtherPostalCode
+  - Salutation
+  - Title
+  lookups:
+    AccountId:
+      table: Account
+      key_field: AccountId
+    IndividualId:
+      table: Individual
+      key_field: IndividualId
+    ReportsToId:
+      table: Contact
+      key_field: ReportsToId
+      after: Insert Contact
