@@ -1,0 +1,74 @@
+<template>
+
+  <table>
+    <tr>
+      <td>
+        <div class="input-fields">
+          <lightning-input style="max-width: 130px;" type="text" name="name" placeholder="Name" variant="label-hidden" value={horse.name} onchange={handleOnChange} required class="slds-col slds-size_1-of-2"></lightning-input>
+          <lightning-input style="max-width: 130px;" type="text" name="registrationNumber" placeholder="Reg No." variant="label-hidden" value={horse.registrationNumber} required onchange={handleOnChange} class="slds-col slds-size_1-of-2"></lightning-input>
+          
+          <div style="max-width: 130px;" class="slds-col slds-size_1-of-2">
+            <lightning-combobox name="gender" placeholder="Gender" variant="label-hidden" value={horse.gender} options={genderOptions} onchange={handleOnChange}></lightning-combobox>
+          </div>
+
+          <!-- <div style="max-width: 130px;" class="slds-col slds-size_1-of-2">
+            <lightning-combobox name="competing" variant="label-hidden" value={horse.competing} options={boolOptions} onchange={handleOnChange}></lightning-combobox>
+          </div> -->
+
+          <div style="max-width: 130px;" class="slds-col slds-size_1-of-2">
+            <lightning-input type="date" name="dateFoaled" placeholder="Date Foaled" variant="label-hidden" value={horse.dateFoaled} onchange={handleOnChange}></lightning-input>
+          </div>
+
+          <lightning-input style="max-width: 130px;" type="text" name="color" placeholder="Color" variant="label-hidden" value={horse.color} onchange={handleOnChange} class="slds-col slds-size_1-of-2"></lightning-input>
+
+          <c-lookup style="max-width: 130px;"
+                    onsearch={handleSearch}
+                    onselectionchange={handleSelectionChange}
+                    name="sire"
+                    placeholder="Sire..."
+                    class="sire">
+          </c-lookup>
+          <c-lookup style="max-width: 130px;"
+                    onsearch={handleSearch}
+                    onselectionchange={handleSelectionChange}
+                    name="dam"
+                    placeholder="Dam..."
+                    class="dam">
+          </c-lookup>
+        </div>
+      </td>
+        <td style="vertical-align:top;">
+          <div>
+            <div>
+              <lightning-input name="AQHA" label="AQHA" type="checkbox" onchange={handleOnChange} uncheck> </lightning-input>
+              <lightning-input name="APHA" label="APHA" type="checkbox" onchange={handleOnChange} uncheck> </lightning-input>
+              <lightning-input name="APHC" label="APHC" type="checkbox" onchange={handleOnChange} uncheck> </lightning-input>
+              <lightning-input name="TB" label="TB" type="checkbox" onchange={handleOnChange} uncheck> </lightning-input>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div>
+            <div>
+              <lightning-input type="checkbox" label="Competing?" name="competing" value={horse.competing} onchange={handleOnChange} uncheck> </lightning-input>
+              </br>
+              <lightning-input type="checkbox" label="Other" name="other" value={horse.other} onchange={handleOnChange} uncheck> </lightning-input>
+              <lightning-input type="text" label="Other" name="otherBreed" variant="label-hidden" value={horse.otherBreed} onchange={handleOnChange}></lightning-input>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="input-fields">
+            <lightning-file-upload label="Upload"
+                                  multiple="true"
+                                  onuploadfinished={handleUploadFinished}
+                                  class="slds-col slds-size_1-of-2">
+            </lightning-file-upload>
+          </div>
+        </td>
+        <td>
+            <lightning-button-icon class="slds-m-left_x_large slds-col slds-size_2-of-12" icon-name="utility:delete" variant="border-filled" onclick={removeRow} data-key={horse.id}></lightning-button-icon>
+        </td> 
+    </tr>
+  </table>
+</template>

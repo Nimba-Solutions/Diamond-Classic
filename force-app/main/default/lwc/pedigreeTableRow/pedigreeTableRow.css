@@ -1,0 +1,9 @@
+.input-fields {
+  display: flex;
+  flex-wrap: wrap;
+}
+.controls {
+  display: flex; 
+  align-items: flex-end;
+  width: 100%;
+}
