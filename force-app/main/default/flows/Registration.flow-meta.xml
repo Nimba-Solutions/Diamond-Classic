@@ -79,7 +79,7 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>Lead.Company</assignToReference>
+            <assignToReference>Lead.Business_Name__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Business_Name</elementReference>
@@ -673,7 +673,7 @@
             <targetReference>Lead_Details</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <subflows>
         <name>Pedigree_Table</name>
         <label>Pedigree Table</label>
