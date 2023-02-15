@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - 'feature/**__*'
-
 jobs:
   build_payload:
     runs-on: ubuntu-latest
@@ -25,7 +24,7 @@ jobs:
         changed_files_array=($changed_files)
 
         file_diffs=""
-        for file in "${ changed_files_array[@] }"; do
+        for file in "${changed_files_array[*]}"; do
           file_diff="$(git diff HEAD..HEAD^ -- "$file")"
           file_diffs="$file_diffs\n{\"filename\":\"$file\",\"diff\":\"$file_diff\"}"
         done
