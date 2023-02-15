@@ -1,7 +1,5 @@
 import { LightningElement, track, api, wire } from 'lwc';
 import { FlowNavigationNextEvent } from 'lightning/flowSupport';
-import createHorsesAndFiles from '@salesforce/apex/Horse.createHorseRecord';
-
 
 export default class PedigreeTable extends LightningElement {
     @api availableActions = [];
