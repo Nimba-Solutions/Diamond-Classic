@@ -2,147 +2,105 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>56.0</apiVersion>
     <assignments>
-        <name>AssignContactValues</name>
-        <label>AssignContactValues</label>
-        <locationX>1302</locationX>
-        <locationY>392</locationY>
+        <name>ApplicationAssignments</name>
+        <label>ApplicationAssignments</label>
+        <locationX>1992</locationX>
+        <locationY>389</locationY>
         <assignmentItems>
-            <assignToReference>Contact.FirstName</assignToReference>
+            <assignToReference>Application.Lead__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>First_Name</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>Contact.LastName</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Contact_Last_Name</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>Contact.HomePhone</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>ContactPhone.value</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>Contact.Email</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>ContactEmail.value</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>Contact.MailingStreet</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>contactAddress.street</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>Contact.MailingCity</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>contactAddress.city</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>Contact.MailingState</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>contactAddress.province</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>Contact.MailingPostalCode</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>contactAddress.postalCode</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>Contact.AccountId</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Account.Id</elementReference>
+                <elementReference>Lead.Id</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>GetExistingContacts</targetReference>
+            <targetReference>CreateApplication</targetReference>
         </connector>
     </assignments>
     <assignments>
-        <name>BusinessAccount</name>
-        <label>BusinessAccount</label>
-        <locationX>719</locationX>
-        <locationY>343</locationY>
+        <name>AssignLeadValues</name>
+        <label>AssignLeadValues</label>
+        <locationX>1127</locationX>
+        <locationY>439</locationY>
         <assignmentItems>
-            <assignToReference>Account.Name</assignToReference>
+            <assignToReference>Lead.FirstName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>LeadFirst_Name</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Lead.LastName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>LeadLast_Name</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Lead.Phone</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>LeadPhone.value</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Lead.Email</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>LeadEmail.value</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Lead.Street</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>LeadAddress.street</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Lead.City</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>LeadAddress.city</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Lead.State</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>LeadAddress.province</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Lead.PostalCode</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>LeadAddress.postalCode</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Lead.Company</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Business_Name</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>Account.Email__c</assignToReference>
+            <assignToReference>Lead.IsBusiness__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Account_Email.value</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>Account.BillingStreet</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>accountAddress.street</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>Account.BillingCity</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>accountAddress.city</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>Account.BillingState</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>accountAddress.province</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>Account.BillingPostalCode</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>accountAddress.postalCode</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>Account.BillingCountry</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>accountAddress.country</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>Account.Phone</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Account_Business_Phone.value</elementReference>
+                <elementReference>Are_you_registering_your_business</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>GetAccount</targetReference>
+            <targetReference>Pedigree_Table</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>collectHorses</name>
         <label>Collect Horses</label>
-        <locationX>2119</locationX>
-        <locationY>569</locationY>
+        <locationX>1678</locationX>
+        <locationY>548</locationY>
         <assignmentItems>
             <assignToReference>Affiliations</assignToReference>
             <operator>Add</operator>
@@ -157,8 +115,8 @@
     <assignments>
         <name>defineAffiliations</name>
         <label>Affiliations</label>
-        <locationX>1992</locationX>
-        <locationY>569</locationY>
+        <locationX>1524</locationX>
+        <locationY>548</locationY>
         <assignmentItems>
             <assignToReference>Affiliation.Account__c</assignToReference>
             <operator>Assign</operator>
@@ -177,76 +135,11 @@
             <targetReference>collectHorses</targetReference>
         </connector>
     </assignments>
-    <assignments>
-        <name>PersonalAccount</name>
-        <label>PersonalAccount</label>
-        <locationX>715</locationX>
-        <locationY>445</locationY>
-        <assignmentItems>
-            <assignToReference>Account.Name</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Person_Account_Name</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>Account.Email__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>ContactEmail.value</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>Account.BillingStreet</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>contactAddress.street</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>Account.BillingCity</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>contactAddress.city</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>Account.BillingState</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>contactAddress.province</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>Account.BillingPostalCode</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>contactAddress.postalCode</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>Account.Phone</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>ContactPhone.value</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>Account.BillingCountry</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>contactAddress.country</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>GetAccount</targetReference>
-        </connector>
-    </assignments>
     <decisions>
-        <name>DoesAccountExist</name>
-        <label>DoesAccountExist</label>
-        <locationX>962</locationX>
-        <locationY>394</locationY>
+        <name>DoesLeadExist</name>
+        <label>DoesLeadExist</label>
+        <locationX>716</locationX>
+        <locationY>377</locationY>
         <defaultConnector>
             <targetReference>CreateNewAccount</targetReference>
         </defaultConnector>
@@ -255,32 +148,7 @@
             <name>YesAcct</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>GetAccount</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>AssignContactValues</targetReference>
-            </connector>
-            <label>Yes</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>DoesContactExist</name>
-        <label>DoesContactExist?</label>
-        <locationX>1575</locationX>
-        <locationY>395</locationY>
-        <defaultConnector>
-            <targetReference>CreateNewContact</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>No</defaultConnectorLabel>
-        <rules>
-            <name>Yes</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>GetExistingContacts</leftValueReference>
+                <leftValueReference>GetLead</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -295,11 +163,8 @@
     <decisions>
         <name>IsBusinessAccount</name>
         <label>IsBusinessAccount?</label>
-        <locationX>544</locationX>
-        <locationY>397</locationY>
-        <defaultConnector>
-            <targetReference>PersonalAccount</targetReference>
-        </defaultConnector>
+        <locationX>539</locationX>
+        <locationY>586</locationY>
         <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
             <name>Yes_0</name>
@@ -311,9 +176,6 @@
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
-            <connector>
-                <targetReference>BusinessAccount</targetReference>
-            </connector>
             <label>Yes</label>
         </rules>
     </decisions>
@@ -322,7 +184,7 @@
     <formulas>
         <name>Person_Account_Name</name>
         <dataType>String</dataType>
-        <expression>{!First_Name}   +&quot; &quot;+    {!Contact_Last_Name}   +&quot;&apos;s Account&quot;</expression>
+        <expression>{!LeadFirst_Name}   +&quot; &quot;+    {!LeadLast_Name}   +&quot;&apos;s Account&quot;</expression>
     </formulas>
     <interviewLabel>Registration {!$Flow.CurrentDateTime}</interviewLabel>
     <isAdditionalPermissionRequiredToRun>true</isAdditionalPermissionRequiredToRun>
@@ -330,8 +192,8 @@
     <loops>
         <name>loopHorses</name>
         <label>loopHorses</label>
-        <locationX>2053</locationX>
-        <locationY>389</locationY>
+        <locationX>1621</locationX>
+        <locationY>385</locationY>
         <collectionReference>Pedigree_Table.horseRecords</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -363,295 +225,55 @@
     <recordCreates>
         <name>createAffiliations</name>
         <label>Affiliations</label>
-        <locationX>2225</locationX>
-        <locationY>388</locationY>
+        <locationX>1860</locationX>
+        <locationY>389</locationY>
         <connector>
-            <targetReference>Welcome_Email</targetReference>
+            <targetReference>ApplicationAssignments</targetReference>
         </connector>
         <inputReference>Affiliations</inputReference>
     </recordCreates>
     <recordCreates>
+        <name>CreateApplication</name>
+        <label>CreateApplication</label>
+        <locationX>2135</locationX>
+        <locationY>389</locationY>
+        <connector>
+            <targetReference>Welcome_Email</targetReference>
+        </connector>
+        <inputReference>Application</inputReference>
+    </recordCreates>
+    <recordCreates>
         <name>CreateNewAccount</name>
         <label>CreateNewAccount</label>
-        <locationX>1144</locationX>
+        <locationX>953</locationX>
         <locationY>439</locationY>
         <connector>
-            <targetReference>AssignContactValues</targetReference>
+            <targetReference>AssignLeadValues</targetReference>
         </connector>
         <inputReference>Account</inputReference>
     </recordCreates>
-    <recordCreates>
-        <name>CreateNewContact</name>
-        <label>CreateNewContact</label>
-        <locationX>1751</locationX>
-        <locationY>341</locationY>
-        <connector>
-            <targetReference>Pedigree_Table</targetReference>
-        </connector>
-        <inputReference>Contact</inputReference>
-    </recordCreates>
     <recordLookups>
-        <name>GetAccount</name>
-        <label>GetAccount</label>
-        <locationX>858</locationX>
-        <locationY>392</locationY>
+        <name>GetLead</name>
+        <label>GetLead</label>
+        <locationX>561</locationX>
+        <locationY>375</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>DoesAccountExist</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Email__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Account.Email__c</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Account</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>GetExistingContacts</name>
-        <label>GetExistingContacts</label>
-        <locationX>1439</locationX>
-        <locationY>393</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>DoesContactExist</targetReference>
+            <targetReference>DoesLeadExist</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Email</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Contact.Email</elementReference>
+                <elementReference>LeadEmail.value</elementReference>
             </value>
         </filters>
-        <getFirstRecordOnly>false</getFirstRecordOnly>
-        <object>Contact</object>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Lead</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <runInMode>SystemModeWithoutSharing</runInMode>
-    <screens>
-        <name>Account_Details</name>
-        <label>Account Details</label>
-        <locationX>407</locationX>
-        <locationY>375</locationY>
-        <allowBack>false</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <connector>
-            <targetReference>IsBusinessAccount</targetReference>
-        </connector>
-        <fields>
-            <name>Personal_Information</name>
-            <fieldText>Personal Information</fieldText>
-            <fieldType>RegionContainer</fieldType>
-            <fields>
-                <name>Personal_Information_Column1</name>
-                <fieldType>Region</fieldType>
-                <fields>
-                    <name>First_Name</name>
-                    <dataType>String</dataType>
-                    <fieldText>First Name</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>true</isRequired>
-                </fields>
-                <fields>
-                    <name>Contact_Last_Name</name>
-                    <dataType>String</dataType>
-                    <fieldText>Last Name</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>true</isRequired>
-                </fields>
-                <fields>
-                    <name>ContactPhone</name>
-                    <extensionName>flowruntime:phone</extensionName>
-                    <fieldType>ComponentInstance</fieldType>
-                    <inputParameters>
-                        <name>required</name>
-                        <value>
-                            <booleanValue>true</booleanValue>
-                        </value>
-                    </inputParameters>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                    <storeOutputAutomatically>true</storeOutputAutomatically>
-                </fields>
-                <fields>
-                    <name>ContactEmail</name>
-                    <extensionName>flowruntime:email</extensionName>
-                    <fieldType>ComponentInstance</fieldType>
-                    <inputParameters>
-                        <name>required</name>
-                        <value>
-                            <booleanValue>true</booleanValue>
-                        </value>
-                    </inputParameters>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                    <storeOutputAutomatically>true</storeOutputAutomatically>
-                </fields>
-                <fields>
-                    <name>contactAddress</name>
-                    <extensionName>flowruntime:address</extensionName>
-                    <fieldType>ComponentInstance</fieldType>
-                    <inputParameters>
-                        <name>addressLabel</name>
-                        <value>
-                            <stringValue>Mailing Address</stringValue>
-                        </value>
-                    </inputParameters>
-                    <inputParameters>
-                        <name>inputProvinceOptions</name>
-                        <value>
-                            <stringValue>Alabama, Alaska, American Samoa, Arizona, Arkansas, California, Colorado, Connecticut, Delaware, District of Columbia, Florida, Georgia, Guam, Hawaii, Idaho, Illinois, Indiana, Iowa, Kansas, Kentucky, Louisiana, Maine, Maryland, Massachusetts, Michigan, Minnesota, Minor Outlying Islands, Mississippi, Missouri, Montana, Nebraska, Nevada, New Hampshire, New Jersey, New Mexico, New York, North Carolina, North Dakota, Northern Mariana Islands, Ohio, Oklahoma, Oregon, Pennsylvania, Puerto Rico, Rhode Island, South Carolina, South Dakota, Tennessee, Texas, U.S. Virgin Islands, Utah, Vermont, Virginia, Washington, West Virginia, Wisconsin, Wyoming</stringValue>
-                        </value>
-                    </inputParameters>
-                    <inputParameters>
-                        <name>inputCountryOptions</name>
-                        <value>
-                            <stringValue>USA</stringValue>
-                        </value>
-                    </inputParameters>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                    <storeOutputAutomatically>true</storeOutputAutomatically>
-                </fields>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>12</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <isRequired>false</isRequired>
-            <regionContainerType>SectionWithHeader</regionContainerType>
-        </fields>
-        <fields>
-            <name>Account_Details_Section2</name>
-            <fieldType>RegionContainer</fieldType>
-            <fields>
-                <name>Account_Details_Section2_Column1</name>
-                <fieldType>Region</fieldType>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>12</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <isRequired>false</isRequired>
-            <regionContainerType>SectionWithoutHeader</regionContainerType>
-        </fields>
-        <fields>
-            <name>Are_you_registering_your_business</name>
-            <dataType>Boolean</dataType>
-            <fieldText>Are you registering your business?</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
-        </fields>
-        <fields>
-            <name>Business_Information</name>
-            <fieldText>Business Information</fieldText>
-            <fieldType>RegionContainer</fieldType>
-            <fields>
-                <name>Business_Information_Column1</name>
-                <fieldType>Region</fieldType>
-                <fields>
-                    <name>Business_Name</name>
-                    <dataType>String</dataType>
-                    <fieldText>Business Name</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>true</isRequired>
-                </fields>
-                <fields>
-                    <name>Account_Business_Phone</name>
-                    <extensionName>flowruntime:phone</extensionName>
-                    <fieldType>ComponentInstance</fieldType>
-                    <inputParameters>
-                        <name>label</name>
-                        <value>
-                            <stringValue>Business Phone</stringValue>
-                        </value>
-                    </inputParameters>
-                    <inputParameters>
-                        <name>required</name>
-                        <value>
-                            <booleanValue>true</booleanValue>
-                        </value>
-                    </inputParameters>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                    <storeOutputAutomatically>true</storeOutputAutomatically>
-                </fields>
-                <fields>
-                    <name>Account_Email</name>
-                    <extensionName>flowruntime:email</extensionName>
-                    <fieldType>ComponentInstance</fieldType>
-                    <inputParameters>
-                        <name>required</name>
-                        <value>
-                            <booleanValue>true</booleanValue>
-                        </value>
-                    </inputParameters>
-                    <inputParameters>
-                        <name>label</name>
-                        <value>
-                            <stringValue>Business Email</stringValue>
-                        </value>
-                    </inputParameters>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                    <storeOutputAutomatically>true</storeOutputAutomatically>
-                </fields>
-                <fields>
-                    <name>accountAddress</name>
-                    <extensionName>flowruntime:address</extensionName>
-                    <fieldType>ComponentInstance</fieldType>
-                    <inputParameters>
-                        <name>addressLabel</name>
-                        <value>
-                            <stringValue>Business Address</stringValue>
-                        </value>
-                    </inputParameters>
-                    <inputParameters>
-                        <name>country</name>
-                        <value>
-                            <stringValue>Untied States</stringValue>
-                        </value>
-                    </inputParameters>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                    <storeOutputAutomatically>true</storeOutputAutomatically>
-                </fields>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>12</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <isRequired>false</isRequired>
-            <regionContainerType>SectionWithHeader</regionContainerType>
-            <visibilityRule>
-                <conditionLogic>and</conditionLogic>
-                <conditions>
-                    <leftValueReference>Are_you_registering_your_business</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <booleanValue>true</booleanValue>
-                    </rightValue>
-                </conditions>
-            </visibilityRule>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
     <screens>
         <name>Account_Details_0</name>
         <label>Account Details</label>
@@ -851,13 +473,175 @@
         <showHeader>false</showHeader>
     </screens>
     <screens>
-        <name>Reject</name>
-        <label>Reject</label>
-        <locationX>1747</locationX>
-        <locationY>445</locationY>
+        <name>Lead_Details</name>
+        <label>Lead Details</label>
+        <locationX>406</locationX>
+        <locationY>375</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
+        <connector>
+            <targetReference>GetLead</targetReference>
+        </connector>
+        <fields>
+            <name>Personal_Information</name>
+            <fieldText>Personal Information</fieldText>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>Personal_Information_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>LeadFirst_Name</name>
+                    <dataType>String</dataType>
+                    <fieldText>First Name</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <isRequired>true</isRequired>
+                </fields>
+                <fields>
+                    <name>LeadLast_Name</name>
+                    <dataType>String</dataType>
+                    <fieldText>Last Name</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <isRequired>true</isRequired>
+                </fields>
+                <fields>
+                    <name>LeadPhone</name>
+                    <extensionName>flowruntime:phone</extensionName>
+                    <fieldType>ComponentInstance</fieldType>
+                    <inputParameters>
+                        <name>required</name>
+                        <value>
+                            <booleanValue>true</booleanValue>
+                        </value>
+                    </inputParameters>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                </fields>
+                <fields>
+                    <name>LeadEmail</name>
+                    <extensionName>flowruntime:email</extensionName>
+                    <fieldType>ComponentInstance</fieldType>
+                    <inputParameters>
+                        <name>required</name>
+                        <value>
+                            <booleanValue>true</booleanValue>
+                        </value>
+                    </inputParameters>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                </fields>
+                <fields>
+                    <name>LeadAddress</name>
+                    <extensionName>flowruntime:address</extensionName>
+                    <fieldType>ComponentInstance</fieldType>
+                    <inputParameters>
+                        <name>addressLabel</name>
+                        <value>
+                            <stringValue>Mailing Address</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>inputProvinceOptions</name>
+                        <value>
+                            <stringValue>Alabama, Alaska, American Samoa, Arizona, Arkansas, California, Colorado, Connecticut, Delaware, District of Columbia, Florida, Georgia, Guam, Hawaii, Idaho, Illinois, Indiana, Iowa, Kansas, Kentucky, Louisiana, Maine, Maryland, Massachusetts, Michigan, Minnesota, Minor Outlying Islands, Mississippi, Missouri, Montana, Nebraska, Nevada, New Hampshire, New Jersey, New Mexico, New York, North Carolina, North Dakota, Northern Mariana Islands, Ohio, Oklahoma, Oregon, Pennsylvania, Puerto Rico, Rhode Island, South Carolina, South Dakota, Tennessee, Texas, U.S. Virgin Islands, Utah, Vermont, Virginia, Washington, West Virginia, Wisconsin, Wyoming</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>inputCountryOptions</name>
+                        <value>
+                            <stringValue>USA</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>12</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithHeader</regionContainerType>
+        </fields>
+        <fields>
+            <name>Lead_Details_Section2</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>Lead_Details_Section2_Column1</name>
+                <fieldType>Region</fieldType>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>12</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
+        </fields>
+        <fields>
+            <name>Are_you_registering_your_business</name>
+            <dataType>Boolean</dataType>
+            <fieldText>Are you registering your business?</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Business_Information</name>
+            <fieldText>Business Information</fieldText>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>Business_Information_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>Business_Name</name>
+                    <dataType>String</dataType>
+                    <fieldText>Business Name</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <isRequired>true</isRequired>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>12</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithHeader</regionContainerType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>Are_you_registering_your_business</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <booleanValue>true</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Reject</name>
+        <label>Reject</label>
+        <locationX>957</locationX>
+        <locationY>331</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Pedigree_Table</targetReference>
+        </connector>
         <fields>
             <name>oops</name>
             <fieldText>&lt;p&gt;There is already an account that matches the details you&apos;ve provided.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Contact us if you need assistance.&lt;/p&gt;</fieldText>
@@ -869,8 +653,8 @@
     <screens>
         <name>Success_Page_0</name>
         <label>Success_Page</label>
-        <locationX>2465</locationX>
-        <locationY>388</locationY>
+        <locationX>2413</locationX>
+        <locationY>389</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -886,15 +670,15 @@
         <locationX>50</locationX>
         <locationY>376</locationY>
         <connector>
-            <targetReference>Account_Details</targetReference>
+            <targetReference>Lead_Details</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
     <subflows>
         <name>Pedigree_Table</name>
         <label>Pedigree Table</label>
-        <locationX>1905</locationX>
-        <locationY>389</locationY>
+        <locationX>1391</locationX>
+        <locationY>385</locationY>
         <connector>
             <targetReference>loopHorses</targetReference>
         </connector>
@@ -904,8 +688,8 @@
     <subflows>
         <name>Welcome_Email</name>
         <label>Welcome Email</label>
-        <locationX>2342</locationX>
-        <locationY>388</locationY>
+        <locationX>2269</locationX>
+        <locationY>389</locationY>
         <connector>
             <targetReference>Success_Page_0</targetReference>
         </connector>
@@ -955,6 +739,14 @@
         <objectType>Affiliation__c</objectType>
     </variables>
     <variables>
+        <name>Application</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Application__c</objectType>
+    </variables>
+    <variables>
         <name>Contact</name>
         <dataType>SObject</dataType>
         <isCollection>false</isCollection>
@@ -985,5 +777,13 @@
         <isCollection>true</isCollection>
         <isInput>true</isInput>
         <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>Lead</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Lead</objectType>
     </variables>
 </Flow>
