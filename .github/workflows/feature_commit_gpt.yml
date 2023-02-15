@@ -36,7 +36,7 @@ jobs:
     - name: Create JSON payload
       run: |
         echo '{
-          "instructions:" "Please review and concisely summarize each of the changes",
+          "instructions": "Please review and concisely summarize each of the changes",
           "commit_message": "${{ steps.2.outputs.commit_message }}",
           "changes": ${{ steps.4.outputs.file_diffs }}
         }' > payload.json
