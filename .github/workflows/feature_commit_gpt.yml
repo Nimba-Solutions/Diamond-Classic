@@ -44,7 +44,7 @@ jobs:
     - name: Post JSON payload
       run: |
         apk add --no-cache curl
-        response="$(curl -X POST -H "Content-Type: application/json" -d "${{ env.JSON_PAYLOAD }}" "http://nimbot.herokuapp.com/ProcessText")"
+        response="$(curl -X POST -H "Content-Type: application/json" -d "@payload.json" "http://nimbot.herokuapp.com/ProcessText")"
         echo "Response: $response"
 
     - name: Save result in original commit
