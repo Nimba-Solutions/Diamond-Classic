@@ -42,12 +42,9 @@ jobs:
         }' > payload.json
 
     - name: Post JSON payload
-      uses: docker://alpine:3.12
-      env:
-        JSON_PAYLOAD: ${{ toJson(steps.5.outputs) }}
       run: |
         apk add --no-cache curl
-        response="$(curl -X POST -H "Content-Type: application/json" -d "$JSON_PAYLOAD" "http://nimbot.herokuapp.com/ProcessText")"
+        response="$(curl -X POST -H "Content-Type: application/json" -d "${{ env.JSON_PAYLOAD }}" "http://nimbot.herokuapp.com/ProcessText")"
         echo "Response: $response"
 
     - name: Save result in original commit
