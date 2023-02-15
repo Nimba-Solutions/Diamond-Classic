@@ -8,34 +8,29 @@ on:
 jobs:
   build_payload:
     runs-on: ubuntu-latest
-    outputs:
-      commit_message: ${{ steps.get_commit_message.outputs.commit_message }}
-      file_diffs: ${{ steps.get_file_diffs.outputs.file_diffs }}
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
     - name: Get commit message
-      id: get_commit_message
-      run: echo "::set-output name=commit_message::$(git log -1 --pretty=%B)"
+      run: echo "commit_message=$(git log -1 --pretty=%B)" >> $GITHUB_ENV
 
     - name: Get changed files
-      run: |
-        echo "::set-output name=changed_files::$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA)"
+      run: echo "changed_files=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA)" >> $GITHUB_ENV
 
     - name: Get file diffs
-      id: get_file_diffs
       run: |
         changed_files="$(echo "$changed_files")"
         changed_files_array=($changed_files)
+
         file_diffs=""
         for file in "${ changed_files_array[@] }"; do
           file_diff="$(git diff HEAD..HEAD^ -- "$file")"
           file_diffs="$file_diffs\n{\"filename\":\"$file\",\"diff\":\"$file_diff\"}"
         done
 
-        echo "::set-output name=file_diffs::[$file_diffs]"
+        echo "file_diffs=[$file_diffs]" >> $GITHUB_ENV
 
   post_payload:
     runs-on: ubuntu-latest
@@ -45,8 +40,8 @@ jobs:
       run: |
         echo '{
           "instructions": "Please review and concisely summarize each of the changes",
-          "commit_message": "${{ needs.build_payload.outputs.commit_message }}",
-          "changes": ${{ needs.build_payload.outputs.file_diffs }}
+          "commit_message": "$commit_message",
+          "changes": $file_diffs
         }' > payload.json
 
     - name: Post JSON payload
