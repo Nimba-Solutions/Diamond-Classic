@@ -1,0 +1,18 @@
+name: Create SFDX Package Version
+on:
+  push:
+    branches: [ main ]
+jobs:
+  create_package_version:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup SFDX CLI
+      uses: salesforcecli/action-setup@v1
+      with:
+        version: 'latest'
+    - name: Create Package Version
+      run: sfdx force:package:version:create -p ${{ github.repository }} -x -w 10 -v ${{ secrets.DEV_HUB_ALIAS }} --codecoverage
+      env:
+        SFDX_AUTH_URL: ${{ secrets.SFDX_AUTH_URL }}
