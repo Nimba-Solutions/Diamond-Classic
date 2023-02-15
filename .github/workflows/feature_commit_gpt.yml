@@ -6,12 +6,12 @@ on:
       - 'feature/**__*'
 
 jobs:
-  build:
+  build_payload:
     runs-on: ubuntu-latest
     outputs:
       commit_message: ${{ steps.get_commit_message.outputs.commit_message }}
       file_diffs: ${{ steps.get_file_diffs.outputs.file_diffs }}
-      
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -38,12 +38,16 @@ jobs:
 
         echo "::set-output name=file_diffs::[$file_diffs]"
 
+  post_payload:
+    runs-on: ubuntu-latest
+    needs: build_payload
+    steps:
     - name: Create JSON payload
       run: |
         echo '{
           "instructions": "Please review and concisely summarize each of the changes",
-          "commit_message": "${{ outputs.commit_message }}",
-          "changes": ${{ outputs.file_diffs }}
+          "commit_message": "${{ needs.build_payload.outputs.commit_message }}",
+          "changes": ${{ needs.build_payload.outputs.file_diffs }}
         }' > payload.json
 
     - name: Post JSON payload
