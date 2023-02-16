@@ -9,8 +9,9 @@
 		<target>lightning__HomePage</target>
 	</targets>
 	<targetConfigs>
-		<targetConfig targets="lightning__FlowScreen">
-				<property name="horses" type="apex://Horse[]" />
-		</targetConfig>
-	</targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="applicationId" type="String" label="Application Id" description=""></property>
+			<property name="leadId" type="String" label="lead Id" description=""></property>
+        </targetConfig>
+    </targetConfigs>
 </LightningComponentBundle>

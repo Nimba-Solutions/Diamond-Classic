@@ -2,26 +2,10 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>56.0</apiVersion>
     <assignments>
-        <name>ApplicationAssignments</name>
-        <label>ApplicationAssignments</label>
-        <locationX>1992</locationX>
-        <locationY>389</locationY>
-        <assignmentItems>
-            <assignToReference>Application.Lead__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Lead.Id</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>CreateApplication</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
         <name>AssignLeadValues</name>
         <label>AssignLeadValues</label>
-        <locationX>1127</locationX>
-        <locationY>439</locationY>
+        <locationX>1057</locationX>
+        <locationY>447</locationY>
         <assignmentItems>
             <assignToReference>Lead.FirstName</assignToReference>
             <operator>Assign</operator>
@@ -79,10 +63,10 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>Lead.Business_Name__c</assignToReference>
+            <assignToReference>Lead.Company</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Business_Name</elementReference>
+                <elementReference>fxBusinessName</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -93,55 +77,16 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Pedigree_Table</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>collectHorses</name>
-        <label>Collect Horses</label>
-        <locationX>1678</locationX>
-        <locationY>548</locationY>
-        <assignmentItems>
-            <assignToReference>Affiliations</assignToReference>
-            <operator>Add</operator>
-            <value>
-                <elementReference>Affiliation</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>loopHorses</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>defineAffiliations</name>
-        <label>Affiliations</label>
-        <locationX>1524</locationX>
-        <locationY>548</locationY>
-        <assignmentItems>
-            <assignToReference>Affiliation.Account__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Account.Id</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>Affiliation.Horse__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>loopHorses.Id</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>collectHorses</targetReference>
+            <targetReference>createLead</targetReference>
         </connector>
     </assignments>
     <decisions>
         <name>DoesLeadExist</name>
         <label>DoesLeadExist</label>
-        <locationX>716</locationX>
+        <locationX>824</locationX>
         <locationY>377</locationY>
         <defaultConnector>
-            <targetReference>CreateNewAccount</targetReference>
+            <targetReference>AssignLeadValues</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
@@ -160,27 +105,17 @@
             <label>Yes</label>
         </rules>
     </decisions>
-    <decisions>
-        <name>IsBusinessAccount</name>
-        <label>IsBusinessAccount?</label>
-        <locationX>539</locationX>
-        <locationY>586</locationY>
-        <defaultConnectorLabel>No</defaultConnectorLabel>
-        <rules>
-            <name>Yes_0</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Are_you_registering_your_business</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <label>Yes</label>
-        </rules>
-    </decisions>
     <description>A basic registration form for Farms and Stallion Stations</description>
     <environments>Default</environments>
+    <formulas>
+        <name>fxBusinessName</name>
+        <dataType>String</dataType>
+        <expression>IF(
+{!Are_you_registering_your_business},
+{!Business_Name},
+{!LeadFirst_Name} + &quot; &quot; + {!LeadLast_Name} + &quot;&apos;s Account&quot;
+)</expression>
+    </formulas>
     <formulas>
         <name>Person_Account_Name</name>
         <dataType>String</dataType>
@@ -189,20 +124,6 @@
     <interviewLabel>Registration {!$Flow.CurrentDateTime}</interviewLabel>
     <isAdditionalPermissionRequiredToRun>true</isAdditionalPermissionRequiredToRun>
     <label>Registration</label>
-    <loops>
-        <name>loopHorses</name>
-        <label>loopHorses</label>
-        <locationX>1621</locationX>
-        <locationY>385</locationY>
-        <collectionReference>Pedigree_Table.horseRecords</collectionReference>
-        <iterationOrder>Asc</iterationOrder>
-        <nextValueConnector>
-            <targetReference>defineAffiliations</targetReference>
-        </nextValueConnector>
-        <noMoreValuesConnector>
-            <targetReference>createAffiliations</targetReference>
-        </noMoreValuesConnector>
-    </loops>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -223,39 +144,36 @@
     </processMetadataValues>
     <processType>Flow</processType>
     <recordCreates>
-        <name>createAffiliations</name>
-        <label>Affiliations</label>
-        <locationX>1860</locationX>
-        <locationY>389</locationY>
-        <connector>
-            <targetReference>ApplicationAssignments</targetReference>
-        </connector>
-        <inputReference>Affiliations</inputReference>
-    </recordCreates>
-    <recordCreates>
         <name>CreateApplication</name>
         <label>CreateApplication</label>
-        <locationX>2135</locationX>
-        <locationY>389</locationY>
+        <locationX>1331</locationX>
+        <locationY>375</locationY>
         <connector>
-            <targetReference>Welcome_Email</targetReference>
+            <targetReference>Pedigree_Table_Screen</targetReference>
         </connector>
-        <inputReference>Application</inputReference>
+        <inputAssignments>
+            <field>Lead__c</field>
+            <value>
+                <elementReference>Lead.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Application__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
     <recordCreates>
-        <name>CreateNewAccount</name>
-        <label>CreateNewAccount</label>
-        <locationX>953</locationX>
-        <locationY>439</locationY>
+        <name>createLead</name>
+        <label>Lead</label>
+        <locationX>1206</locationX>
+        <locationY>375</locationY>
         <connector>
-            <targetReference>AssignLeadValues</targetReference>
+            <targetReference>CreateApplication</targetReference>
         </connector>
-        <inputReference>Account</inputReference>
+        <inputReference>Lead</inputReference>
     </recordCreates>
     <recordLookups>
         <name>GetLead</name>
         <label>GetLead</label>
-        <locationX>561</locationX>
+        <locationX>672</locationX>
         <locationY>375</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -275,208 +193,10 @@
     </recordLookups>
     <runInMode>SystemModeWithoutSharing</runInMode>
     <screens>
-        <name>Account_Details_0</name>
-        <label>Account Details</label>
-        <locationX>408</locationX>
-        <locationY>542</locationY>
-        <allowBack>false</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <fields>
-            <name>Personal_Information_0</name>
-            <fieldText>Personal Information</fieldText>
-            <fieldType>RegionContainer</fieldType>
-            <fields>
-                <name>Personal_Information_0_Column1</name>
-                <fieldType>Region</fieldType>
-                <fields>
-                    <name>First_Name_0</name>
-                    <dataType>String</dataType>
-                    <fieldText>First Name</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>true</isRequired>
-                </fields>
-                <fields>
-                    <name>Contact_Last_Name_0</name>
-                    <dataType>String</dataType>
-                    <fieldText>Last Name</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>true</isRequired>
-                </fields>
-                <fields>
-                    <name>ContactPhone_0</name>
-                    <extensionName>flowruntime:phone</extensionName>
-                    <fieldType>ComponentInstance</fieldType>
-                    <inputParameters>
-                        <name>required</name>
-                        <value>
-                            <booleanValue>true</booleanValue>
-                        </value>
-                    </inputParameters>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                    <storeOutputAutomatically>true</storeOutputAutomatically>
-                </fields>
-                <fields>
-                    <name>ContactEmail_0</name>
-                    <extensionName>flowruntime:email</extensionName>
-                    <fieldType>ComponentInstance</fieldType>
-                    <inputParameters>
-                        <name>required</name>
-                        <value>
-                            <booleanValue>true</booleanValue>
-                        </value>
-                    </inputParameters>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                    <storeOutputAutomatically>true</storeOutputAutomatically>
-                </fields>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>12</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <isRequired>false</isRequired>
-            <regionContainerType>SectionWithHeader</regionContainerType>
-        </fields>
-        <fields>
-            <name>contactAddress0</name>
-            <extensionName>flowruntime:address</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <fields>
-            <name>Account_Details_0_Section2</name>
-            <fieldType>RegionContainer</fieldType>
-            <fields>
-                <name>Account_Details_0_Section2_Column1</name>
-                <fieldType>Region</fieldType>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>12</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <isRequired>false</isRequired>
-            <regionContainerType>SectionWithoutHeader</regionContainerType>
-        </fields>
-        <fields>
-            <name>Are_you_registering_your_business_0</name>
-            <dataType>Boolean</dataType>
-            <fieldText>Are you registering your business?</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
-        </fields>
-        <fields>
-            <name>Business_Information_0</name>
-            <fieldText>Business Information</fieldText>
-            <fieldType>RegionContainer</fieldType>
-            <fields>
-                <name>Business_Information_0_Column1</name>
-                <fieldType>Region</fieldType>
-                <fields>
-                    <name>Business_Name_0</name>
-                    <dataType>String</dataType>
-                    <fieldText>Business Name</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>true</isRequired>
-                </fields>
-                <fields>
-                    <name>Account_Business_Phone_0</name>
-                    <extensionName>flowruntime:phone</extensionName>
-                    <fieldType>ComponentInstance</fieldType>
-                    <inputParameters>
-                        <name>label</name>
-                        <value>
-                            <stringValue>Business Phone</stringValue>
-                        </value>
-                    </inputParameters>
-                    <inputParameters>
-                        <name>required</name>
-                        <value>
-                            <booleanValue>true</booleanValue>
-                        </value>
-                    </inputParameters>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                    <storeOutputAutomatically>true</storeOutputAutomatically>
-                </fields>
-                <fields>
-                    <name>Account_Email_0</name>
-                    <extensionName>flowruntime:email</extensionName>
-                    <fieldType>ComponentInstance</fieldType>
-                    <inputParameters>
-                        <name>required</name>
-                        <value>
-                            <booleanValue>true</booleanValue>
-                        </value>
-                    </inputParameters>
-                    <inputParameters>
-                        <name>label</name>
-                        <value>
-                            <stringValue>Business Email</stringValue>
-                        </value>
-                    </inputParameters>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                    <storeOutputAutomatically>true</storeOutputAutomatically>
-                </fields>
-                <fields>
-                    <name>accountAddress_0</name>
-                    <extensionName>flowruntime:address</extensionName>
-                    <fieldType>ComponentInstance</fieldType>
-                    <inputParameters>
-                        <name>addressLabel</name>
-                        <value>
-                            <stringValue>Business Address</stringValue>
-                        </value>
-                    </inputParameters>
-                    <inputParameters>
-                        <name>country</name>
-                        <value>
-                            <stringValue>Untied States</stringValue>
-                        </value>
-                    </inputParameters>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                    <storeOutputAutomatically>true</storeOutputAutomatically>
-                </fields>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>12</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <isRequired>false</isRequired>
-            <regionContainerType>SectionWithHeader</regionContainerType>
-            <visibilityRule>
-                <conditionLogic>and</conditionLogic>
-                <conditions>
-                    <leftValueReference>Are_you_registering_your_business</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <booleanValue>true</booleanValue>
-                    </rightValue>
-                </conditions>
-            </visibilityRule>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
-    <screens>
         <name>Lead_Details</name>
         <label>Lead Details</label>
-        <locationX>406</locationX>
-        <locationY>375</locationY>
+        <locationX>549</locationX>
+        <locationY>376</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -632,16 +352,41 @@
         <showHeader>false</showHeader>
     </screens>
     <screens>
+        <name>Pedigree_Table_Screen</name>
+        <label>Pedigree Table Screen</label>
+        <locationX>1469</locationX>
+        <locationY>375</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Welcome_Email</targetReference>
+        </connector>
+        <fields>
+            <name>PedigreeTableLWC</name>
+            <extensionName>c:pedigreeTable</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>leadId</name>
+                <value>
+                    <elementReference>Lead.Id</elementReference>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <showFooter>false</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
         <name>Reject</name>
         <label>Reject</label>
-        <locationX>957</locationX>
-        <locationY>331</locationY>
+        <locationX>1057</locationX>
+        <locationY>316</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
-        <connector>
-            <targetReference>Pedigree_Table</targetReference>
-        </connector>
         <fields>
             <name>oops</name>
             <fieldText>&lt;p&gt;There is already an account that matches the details you&apos;ve provided.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Contact us if you need assistance.&lt;/p&gt;</fieldText>
@@ -653,8 +398,8 @@
     <screens>
         <name>Success_Page_0</name>
         <label>Success_Page</label>
-        <locationX>2413</locationX>
-        <locationY>389</locationY>
+        <locationX>1794</locationX>
+        <locationY>375</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -668,42 +413,25 @@
     </screens>
     <start>
         <locationX>50</locationX>
-        <locationY>376</locationY>
+        <locationY>356</locationY>
         <connector>
             <targetReference>Lead_Details</targetReference>
         </connector>
     </start>
     <status>Active</status>
     <subflows>
-        <name>Pedigree_Table</name>
-        <label>Pedigree Table</label>
-        <locationX>1391</locationX>
-        <locationY>385</locationY>
-        <connector>
-            <targetReference>loopHorses</targetReference>
-        </connector>
-        <flowName>Pedigree_Table</flowName>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </subflows>
-    <subflows>
         <name>Welcome_Email</name>
         <label>Welcome Email</label>
-        <locationX>2269</locationX>
-        <locationY>389</locationY>
+        <locationX>1629</locationX>
+        <locationY>376</locationY>
         <connector>
             <targetReference>Success_Page_0</targetReference>
         </connector>
         <flowName>WelcomeEmail</flowName>
         <inputAssignments>
-            <name>Contact</name>
+            <name>Lead</name>
             <value>
-                <elementReference>Contact</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>HorseDatatable</name>
-            <value>
-                <elementReference>Pedigree_Table.horseRecords</elementReference>
+                <elementReference>Lead</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -761,22 +489,6 @@
         <isInput>true</isInput>
         <isOutput>true</isOutput>
         <objectType>AccountContactRole</objectType>
-    </variables>
-    <variables>
-        <name>Horse</name>
-        <dataType>SObject</dataType>
-        <isCollection>false</isCollection>
-        <isInput>true</isInput>
-        <isOutput>true</isOutput>
-        <objectType>Horse__c</objectType>
-    </variables>
-    <variables>
-        <name>horses</name>
-        <apexClass>Horse</apexClass>
-        <dataType>Apex</dataType>
-        <isCollection>true</isCollection>
-        <isInput>true</isInput>
-        <isOutput>true</isOutput>
     </variables>
     <variables>
         <name>Lead</name>
