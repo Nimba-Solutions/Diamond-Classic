@@ -1,6 +1,6 @@
 import { LightningElement, api, track, wire } from 'lwc';
 import apexSearch from '@salesforce/apex/SampleLookupController.search';
-
+import updateHorse from '@salesforce/apex/PedigreeTableController.updateHorse';
 
 export default class PedigreeTableRow extends LightningElement {
   @api horse;
@@ -20,6 +20,7 @@ export default class PedigreeTableRow extends LightningElement {
     { label: 'Competing', value: 'Competing' },
     { label: 'Not Competing', value: 'Not Competing' }
   ];
+
   connectedCallback() {
     this.template.addEventListener('recordidselected', this.handleRecordIdSelected.bind(this));
   }
@@ -27,21 +28,13 @@ export default class PedigreeTableRow extends LightningElement {
   handleRecordIdSelected(event) {
     const recordId = event.detail.recordId;
     const name = event.detail.name;
-
     if (name === "sire") {
-        this.sireId = recordId;
-        let horseAsString = JSON.stringify(this.horse);
-        horseAsString = horseAsString.replace(/"sire":""/, `"sire":"${this.sireId}"`);
-        this.horse = JSON.parse(horseAsString);
-
+      this.horse.Sire__c = recordId;
     } else if (name === "dam") {
-        this.damId = recordId;
-        let horseAsString = JSON.stringify(this.horse);
-        horseAsString = horseAsString.replace(/"dam":""/, `"dam":"${this.damId}"`);
-        this.horse = JSON.parse(horseAsString);
+      this.damId = recordId;
+      this.horse.Dam__c = recordId;
     }
-    // Perform any necessary actions based on the selected record ID
-}
+  }
 
 
   handleUploadFinished(event) {
@@ -54,15 +47,10 @@ export default class PedigreeTableRow extends LightningElement {
   }
 
   handleOnChange(event) {
-    console.log("Event Target Name: " + JSON.stringify(event.target.name));
-    console.log("Event Target Value: " + JSON.stringify(event.target.value));
-    console.log("Horse: " + JSON.stringify(this.horse));
-
     let value = event.target.value;
     if (event.target.type === "checkbox") {
       value = event.target.checked;
     }
-
     this.horse = { ...this.horse, [event.target.name]: value };
   }
 
@@ -85,4 +73,11 @@ export default class PedigreeTableRow extends LightningElement {
     });
     this.dispatchEvent(removeHorseEvent);
   }
+
+  handleUnfocus() {
+    // implement this!
+    console.log("UNFOCUSED HORSE: "+ JSON.stringify(this.horse));
+    updateHorse({ horseJson:JSON.stringify(this.horse)});
+  }
+
 }
