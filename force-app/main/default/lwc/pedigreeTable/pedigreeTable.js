@@ -4,21 +4,6 @@ import createHorse from '@salesforce/apex/PedigreeTableController.createHorse';
 import updateHorses from '@salesforce/apex/PedigreeTableController.updateHorses';
 
 import HORSE_OBJECT from '@salesforce/schema/Horse__c';
-import ID_FIELD from '@salesforce/schema/Horse__c.Id';
-import NAME_FIELD from '@salesforce/schema/Horse__c.Name__c';
-import REGISTRATION_NUMBER_FIELD from '@salesforce/schema/Horse__c.Registration_Number__c';
-import GENDER_FIELD from '@salesforce/schema/Horse__c.Gender__c';
-import DATE_FOALED_FIELD from '@salesforce/schema/Horse__c.Date_Foaled__c';
-import SIRE_FIELD from '@salesforce/schema/Horse__c.Sire__c';
-import DAM_FIELD from '@salesforce/schema/Horse__c.Dam__c';
-import COLOR_FIELD from '@salesforce/schema/Horse__c.Color__c';
-import APHA_FIELD from '@salesforce/schema/Horse__c.APHA__c';
-import APHC_FIELD from '@salesforce/schema/Horse__c.APHC__c';
-import AQHA_FIELD from '@salesforce/schema/Horse__c.AQHA__c';
-import TB_FIELD from '@salesforce/schema/Horse__c.TB__c';
-import OTHER_FIELD from '@salesforce/schema/Horse__c.Other__c';
-import OTHER_BREED_ASSOCIATION_FIELD from '@salesforce/schema/Horse__c.Other_Breed_Association__c';
-import IS_COMPETING_FIELD from '@salesforce/schema/Horse__c.IsCompeting__c';
 
 export default class PedigreeTable extends LightningElement {
     @api availableActions = [];
