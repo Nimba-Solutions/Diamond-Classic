@@ -288,7 +288,6 @@ export default class Lookup extends NavigationMixin(LightningElement) {
 
         // Get the name attribute of the instance
         const name = this.getAttribute('class');
-        console.log("class: " + name);
 
         // Fire custom event with recordId and name
         this.dispatchEvent(new CustomEvent('recordidselected', { detail: { recordId, name }, bubbles: true }));

@@ -28,21 +28,12 @@ export default class PedigreeTableRow extends LightningElement {
   handleRecordIdSelected(event) {
     const recordId = event.detail.recordId;
     const name = event.detail.name;
-    console.log("const name : "+ name);
-
     if (name === "sire") {
-      this.sireId = recordId;
-      let horseAsString = JSON.stringify(this.horse);
-      horseAsString = horseAsString.replace(/"Sire__c":""/, `"Sire__c":"${this.sireId}"`);
-      this.horse = JSON.parse(horseAsString);
-
+      this.horse.Sire__c = recordId;
     } else if (name === "dam") {
       this.damId = recordId;
-      let horseAsString = JSON.stringify(this.horse);
-      horseAsString = horseAsString.replace(/"Dam__c":""/, `"Dam__c":"${this.damId}"`);
-      this.horse = JSON.parse(horseAsString);
+      this.horse.Dam__c = recordId;
     }
-    // Perform any necessary actions based on the selected record ID
   }
 
 
@@ -56,15 +47,10 @@ export default class PedigreeTableRow extends LightningElement {
   }
 
   handleOnChange(event) {
-    console.log("Event Target Name: " + JSON.stringify(event.target.name));
-    console.log("Event Target Value: " + JSON.stringify(event.target.value));
-    console.log("Horse: " + JSON.stringify(this.horse));
-
     let value = event.target.value;
     if (event.target.type === "checkbox") {
       value = event.target.checked;
     }
-
     this.horse = { ...this.horse, [event.target.name]: value };
   }
 
