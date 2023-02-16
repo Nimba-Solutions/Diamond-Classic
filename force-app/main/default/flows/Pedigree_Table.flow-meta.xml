@@ -26,40 +26,13 @@
     <processType>Flow</processType>
     <runInMode>SystemModeWithoutSharing</runInMode>
     <screens>
-        <name>debug</name>
-        <label>debug</label>
-        <locationX>755</locationX>
-        <locationY>292</locationY>
+        <name>s1</name>
+        <label>s1</label>
+        <locationX>705</locationX>
+        <locationY>398</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
-        <fields>
-            <name>debugg</name>
-            <fieldText>&lt;p&gt;HORSES:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;{!horses}&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
-    <screens>
-        <name>pedigree_table</name>
-        <label>pedigree table</label>
-        <locationX>666</locationX>
-        <locationY>441</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <fields>
-            <name>pedigreeTable</name>
-            <extensionName>c:pedigreeTable</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <outputParameters>
-                <assignToReference>horses</assignToReference>
-                <name>horses</name>
-            </outputParameters>
-        </fields>
         <showFooter>false</showFooter>
         <showHeader>false</showHeader>
     </screens>
@@ -67,64 +40,8 @@
         <locationX>270</locationX>
         <locationY>422</locationY>
         <connector>
-            <targetReference>pedigree_table</targetReference>
+            <targetReference>s1</targetReference>
         </connector>
     </start>
     <status>Active</status>
-    <variables>
-        <name>ContentDocumentLink</name>
-        <dataType>SObject</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>true</isOutput>
-        <objectType>ContentDocumentLink</objectType>
-    </variables>
-    <variables>
-        <name>contentDocumentLinks</name>
-        <dataType>SObject</dataType>
-        <isCollection>true</isCollection>
-        <isInput>false</isInput>
-        <isOutput>true</isOutput>
-        <objectType>ContentDocumentLink</objectType>
-    </variables>
-    <variables>
-        <name>horse</name>
-        <apexClass>Horse</apexClass>
-        <dataType>Apex</dataType>
-        <isCollection>false</isCollection>
-        <isInput>true</isInput>
-        <isOutput>true</isOutput>
-    </variables>
-    <variables>
-        <name>HorseRecord</name>
-        <dataType>SObject</dataType>
-        <isCollection>false</isCollection>
-        <isInput>true</isInput>
-        <isOutput>true</isOutput>
-        <objectType>Horse__c</objectType>
-    </variables>
-    <variables>
-        <name>horseRecords</name>
-        <dataType>SObject</dataType>
-        <isCollection>true</isCollection>
-        <isInput>false</isInput>
-        <isOutput>true</isOutput>
-        <objectType>Horse__c</objectType>
-    </variables>
-    <variables>
-        <name>horses</name>
-        <apexClass>Horse</apexClass>
-        <dataType>Apex</dataType>
-        <isCollection>true</isCollection>
-        <isInput>true</isInput>
-        <isOutput>true</isOutput>
-    </variables>
-    <variables>
-        <name>updateCDLs</name>
-        <dataType>SObject</dataType>
-        <isCollection>true</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <objectType>ContentDocumentLink</objectType>
-    </variables>
 </Flow>
