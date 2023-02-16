@@ -20,8 +20,6 @@ import OTHER_FIELD from '@salesforce/schema/Horse__c.Other__c';
 import OTHER_BREED_ASSOCIATION_FIELD from '@salesforce/schema/Horse__c.Other_Breed_Association__c';
 import IS_COMPETING_FIELD from '@salesforce/schema/Horse__c.IsCompeting__c';
 
-
-
 export default class PedigreeTable extends LightningElement {
     @api availableActions = [];
     @api horses;
@@ -37,36 +35,19 @@ export default class PedigreeTable extends LightningElement {
         }
     }
 
-
-
     handleAddHorse() {
-        // Create a new Horse__c record and set the field values
-        const newHorse = {
-            sObjectType: HORSE_OBJECT.objectApiName,
-            [NAME_FIELD.fieldApiName]: null,
-            [REGISTRATION_NUMBER_FIELD.fieldApiName]: null,
-            [GENDER_FIELD.fieldApiName]: null,
-            [DATE_FOALED_FIELD.fieldApiName]: null,
-            [SIRE_FIELD.fieldApiName]: null,
-            [DAM_FIELD.fieldApiName]: null,
-            [COLOR_FIELD.fieldApiName]: null,
-            [APHA_FIELD.fieldApiName]: false,
-            [APHC_FIELD.fieldApiName]: false,
-            [AQHA_FIELD.fieldApiName]: false,
-            [TB_FIELD.fieldApiName]: false,
-            [OTHER_FIELD.fieldApiName]: false,
-            [OTHER_BREED_ASSOCIATION_FIELD.fieldApiName]: null,
-            [IS_COMPETING_FIELD.fieldApiName]: false
-        };
+        createHorse({ objectApiName: 'Horse__c' })
+            .then(newHorse => {
+                // Add the new horse to the horses array and increment the ID index
+                this.horses = [...this.horses, newHorse];
+                this.idIndex++;
 
-        // Add the new horse to the horses array and increment the ID index
-        this.horses = [...this.horses, newHorse];
-        this.idIndex++;
-
-        console.log("IN LWC: New Horse Added: " + JSON.stringify(this.horses));
+                console.log("IN LWC: New Horse Added: " + JSON.stringify(this.horses));
+            })
+            .catch(error => {
+                console.error(error);
+            });
     }
-
-
 
     handleRemoveHorse(event) {
         this.horses = this.horses.filter(horse => horse.id !== event.detail.horseId);
@@ -95,5 +76,4 @@ export default class PedigreeTable extends LightningElement {
             this.dispatchEvent(navigateNextEvent);
         }
     }
-
 }
