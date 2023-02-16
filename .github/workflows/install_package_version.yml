@@ -1,0 +1,20 @@
+name: Install SFDX Package Version
+on:
+  push:
+    branches: [ main ]
+jobs:
+  deploy_package_version:
+    needs: create_package_version
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup SFDX CLI
+      uses: salesforcecli/action-setup@v1
+      with:
+        version: 'latest'
+    - name: Install Package Version
+      run: sfdx force:package:install -p ${{ github.repository }} -u ${{ secrets.DEV_HUB_ALIAS }} -r
+      env:
+        SFDX_AUTH_URL: ${{ secrets.SFDX_AUTH_URL }}
+        SFDX_BUILDPARAMETERS_JSON: '{"testLevel":"RunSpecifiedTests","specifiedTests":["MyApexTestClass"]}'
