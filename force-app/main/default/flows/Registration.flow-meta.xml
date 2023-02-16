@@ -139,45 +139,6 @@
         </connector>
     </assignments>
     <assignments>
-        <name>collectHorses</name>
-        <label>Collect Horses</label>
-        <locationX>2119</locationX>
-        <locationY>569</locationY>
-        <assignmentItems>
-            <assignToReference>Affiliations</assignToReference>
-            <operator>Add</operator>
-            <value>
-                <elementReference>Affiliation</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>loopHorses</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>defineAffiliations</name>
-        <label>Affiliations</label>
-        <locationX>1992</locationX>
-        <locationY>569</locationY>
-        <assignmentItems>
-            <assignToReference>Affiliation.Account__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Account.Id</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>Affiliation.Horse__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>loopHorses.Id</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>collectHorses</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
         <name>PersonalAccount</name>
         <label>PersonalAccount</label>
         <locationX>715</locationX>
@@ -327,20 +288,6 @@
     <interviewLabel>Registration {!$Flow.CurrentDateTime}</interviewLabel>
     <isAdditionalPermissionRequiredToRun>true</isAdditionalPermissionRequiredToRun>
     <label>Registration</label>
-    <loops>
-        <name>loopHorses</name>
-        <label>loopHorses</label>
-        <locationX>2053</locationX>
-        <locationY>389</locationY>
-        <collectionReference>Pedigree_Table.horseRecords</collectionReference>
-        <iterationOrder>Asc</iterationOrder>
-        <nextValueConnector>
-            <targetReference>defineAffiliations</targetReference>
-        </nextValueConnector>
-        <noMoreValuesConnector>
-            <targetReference>createAffiliations</targetReference>
-        </noMoreValuesConnector>
-    </loops>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -361,16 +308,6 @@
     </processMetadataValues>
     <processType>Flow</processType>
     <recordCreates>
-        <name>createAffiliations</name>
-        <label>Affiliations</label>
-        <locationX>2225</locationX>
-        <locationY>388</locationY>
-        <connector>
-            <targetReference>Welcome_Email</targetReference>
-        </connector>
-        <inputReference>Affiliations</inputReference>
-    </recordCreates>
-    <recordCreates>
         <name>CreateNewAccount</name>
         <label>CreateNewAccount</label>
         <locationX>1144</locationX>
@@ -386,7 +323,7 @@
         <locationX>1751</locationX>
         <locationY>341</locationY>
         <connector>
-            <targetReference>Pedigree_Table</targetReference>
+            <targetReference>pedigree_table_lwc</targetReference>
         </connector>
         <inputReference>Contact</inputReference>
     </recordCreates>
@@ -851,6 +788,28 @@
         <showHeader>false</showHeader>
     </screens>
     <screens>
+        <name>pedigree_table_lwc</name>
+        <label>pedigree table lwc</label>
+        <locationX>1900</locationX>
+        <locationY>396</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Welcome_Email</targetReference>
+        </connector>
+        <fields>
+            <name>PedigreeTableLWC</name>
+            <extensionName>c:pedigreeTable</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <showFooter>false</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
         <name>Reject</name>
         <label>Reject</label>
         <locationX>1747</locationX>
@@ -891,17 +850,6 @@
     </start>
     <status>Active</status>
     <subflows>
-        <name>Pedigree_Table</name>
-        <label>Pedigree Table</label>
-        <locationX>1905</locationX>
-        <locationY>389</locationY>
-        <connector>
-            <targetReference>loopHorses</targetReference>
-        </connector>
-        <flowName>Pedigree_Table</flowName>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </subflows>
-    <subflows>
         <name>Welcome_Email</name>
         <label>Welcome Email</label>
         <locationX>2342</locationX>
@@ -914,12 +862,6 @@
             <name>Contact</name>
             <value>
                 <elementReference>Contact</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>HorseDatatable</name>
-            <value>
-                <elementReference>Pedigree_Table.horseRecords</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -977,13 +919,5 @@
         <isInput>true</isInput>
         <isOutput>true</isOutput>
         <objectType>Horse__c</objectType>
-    </variables>
-    <variables>
-        <name>horses</name>
-        <apexClass>Horse</apexClass>
-        <dataType>Apex</dataType>
-        <isCollection>true</isCollection>
-        <isInput>true</isInput>
-        <isOutput>true</isOutput>
     </variables>
 </Flow>
