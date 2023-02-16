@@ -8,8 +8,4 @@
 		<target>lightning__FlowScreen</target>
 		<target>lightning__HomePage</target>
 	</targets>
-	<targetConfigs>
-		<targetConfig targets="lightning__FlowScreen">
-		</targetConfig>
-	</targetConfigs>
 </LightningComponentBundle>
