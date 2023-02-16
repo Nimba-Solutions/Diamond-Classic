@@ -1,6 +1,6 @@
 import { LightningElement, api, track, wire } from 'lwc';
 import apexSearch from '@salesforce/apex/SampleLookupController.search';
-
+import updateHorse from '@salesforce/apex/PedigreeTableController.updateHorse';
 
 export default class PedigreeTableRow extends LightningElement {
   @api horse;
@@ -20,6 +20,7 @@ export default class PedigreeTableRow extends LightningElement {
     { label: 'Competing', value: 'Competing' },
     { label: 'Not Competing', value: 'Not Competing' }
   ];
+
   connectedCallback() {
     this.template.addEventListener('recordidselected', this.handleRecordIdSelected.bind(this));
   }
@@ -27,21 +28,22 @@ export default class PedigreeTableRow extends LightningElement {
   handleRecordIdSelected(event) {
     const recordId = event.detail.recordId;
     const name = event.detail.name;
+    console.log("const name : "+ name);
 
     if (name === "sire") {
-        this.sireId = recordId;
-        let horseAsString = JSON.stringify(this.horse);
-        horseAsString = horseAsString.replace(/"sire":""/, `"sire":"${this.sireId}"`);
-        this.horse = JSON.parse(horseAsString);
+      this.sireId = recordId;
+      let horseAsString = JSON.stringify(this.horse);
+      horseAsString = horseAsString.replace(/"Sire__c":""/, `"Sire__c":"${this.sireId}"`);
+      this.horse = JSON.parse(horseAsString);
 
     } else if (name === "dam") {
-        this.damId = recordId;
-        let horseAsString = JSON.stringify(this.horse);
-        horseAsString = horseAsString.replace(/"dam":""/, `"dam":"${this.damId}"`);
-        this.horse = JSON.parse(horseAsString);
+      this.damId = recordId;
+      let horseAsString = JSON.stringify(this.horse);
+      horseAsString = horseAsString.replace(/"Dam__c":""/, `"Dam__c":"${this.damId}"`);
+      this.horse = JSON.parse(horseAsString);
     }
     // Perform any necessary actions based on the selected record ID
-}
+  }
 
 
   handleUploadFinished(event) {
@@ -85,4 +87,11 @@ export default class PedigreeTableRow extends LightningElement {
     });
     this.dispatchEvent(removeHorseEvent);
   }
+
+  handleUnfocus() {
+    // implement this!
+    console.log("UNFOCUSED HORSE: "+ JSON.stringify(this.horse));
+    updateHorse({ horseJson:JSON.stringify(this.horse)});
+  }
+
 }

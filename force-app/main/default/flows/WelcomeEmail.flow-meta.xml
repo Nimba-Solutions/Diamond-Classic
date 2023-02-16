@@ -3,8 +3,8 @@
     <actionCalls>
         <name>WelcomeEmail</name>
         <label>WelcomeEmail</label>
-        <locationX>1096</locationX>
-        <locationY>216</locationY>
+        <locationX>1358</locationX>
+        <locationY>68</locationY>
         <actionName>emailSimple</actionName>
         <actionType>emailSimple</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -63,11 +63,11 @@
             <targetReference>WelcomeEmail</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <textTemplates>
         <name>WelcomeEmailBody</name>
         <isViewedAsPlainText>false</isViewedAsPlainText>
-        <text>&lt;p&gt;&lt;img src=&quot;https://waterfall-coldbrew-6027.scratch.file.force.com/sfc/servlet.shepherd/version/download/0688G0000017TDw?asPdf=false&amp;amp;operationContext=CHATTER&quot; alt=&quot;Untitled_Artwork (1).png&quot;&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;{!Lead.FirstName},&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;Thank you for registering with The Diamond Classic!&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;Please review the following details and reach out if any corrections need to be made:&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;{!Lead.FirstName} &lt;span style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;{!Lead.LastName}&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;{!Lead.Email}&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;{!Lead.Phone}&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;{!Lead.Street}&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;{!Lead.City}, {!Lead.State} {!Lead.PostalCode}&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;{!HorseDatatable}&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;</text>
+        <text>&lt;p&gt;&lt;img src=&quot;https://waterfall-coldbrew-6027.scratch.file.force.com/sfc/servlet.shepherd/version/download/0688G0000017TDw?asPdf=false&amp;amp;operationContext=CHATTER&quot; alt=&quot;Untitled_Artwork (1).png&quot;&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;{!Lead.FirstName},&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;Thank you for registering with The Diamond Classic!&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;Please review the following details and reach out if any corrections need to be made:&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;{!Lead.FirstName} &lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;{!Lead.LastName}&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;{!Lead.Email}&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;{!Lead.Phone}&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;{!Lead.Street}&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;{!Lead.City}, {!Lead.State} {!Lead.PostalCode}&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;</text>
     </textTemplates>
     <variables>
         <name>Contact</name>
@@ -76,14 +76,6 @@
         <isInput>true</isInput>
         <isOutput>true</isOutput>
         <objectType>Contact</objectType>
-    </variables>
-    <variables>
-        <name>HorseDatatable</name>
-        <dataType>SObject</dataType>
-        <isCollection>true</isCollection>
-        <isInput>true</isInput>
-        <isOutput>true</isOutput>
-        <objectType>Horse__c</objectType>
     </variables>
     <variables>
         <name>Lead</name>
