@@ -4,11 +4,11 @@
     <tr>
       <td>
         <div class="input-fields">
-          <lightning-input style="max-width: 130px;" type="text" name="name" placeholder="Name" variant="label-hidden" value={horse.name} onchange={handleOnChange} required class="slds-col slds-size_1-of-2"></lightning-input>
-          <lightning-input style="max-width: 130px;" type="text" name="registrationNumber" placeholder="Reg No." variant="label-hidden" value={horse.registrationNumber} required onchange={handleOnChange} class="slds-col slds-size_1-of-2"></lightning-input>
+          <lightning-input style="max-width: 130px;" type="text" name="Name__c" placeholder="Name" variant="label-hidden" value={horse.name} onchange={handleOnChange} required class="slds-col slds-size_1-of-2"></lightning-input>
+          <lightning-input style="max-width: 130px;" type="text" name="Registration_Number__c" placeholder="Reg No." variant="label-hidden" value={horse.registrationNumber} required onchange={handleOnChange} class="slds-col slds-size_1-of-2"></lightning-input>
           
           <div style="max-width: 130px;" class="slds-col slds-size_1-of-2">
-            <lightning-combobox name="gender" placeholder="Gender" variant="label-hidden" value={horse.gender} options={genderOptions} onchange={handleOnChange}></lightning-combobox>
+            <lightning-combobox name="Gender__c" placeholder="Gender" variant="label-hidden" value={horse.gender} options={genderOptions} onchange={handleOnChange}></lightning-combobox>
           </div>
 
           <!-- <div style="max-width: 130px;" class="slds-col slds-size_1-of-2">
@@ -16,44 +16,44 @@
           </div> -->
 
           <div style="max-width: 130px;" class="slds-col slds-size_1-of-2">
-            <lightning-input type="date" name="dateFoaled" placeholder="Date Foaled" variant="label-hidden" value={horse.dateFoaled} onchange={handleOnChange}></lightning-input>
+            <lightning-input type="date" name="Date_Foaled__c" placeholder="Date Foaled" variant="label-hidden" value={horse.dateFoaled} onchange={handleOnChange}></lightning-input>
           </div>
 
-          <lightning-input style="max-width: 130px;" type="text" name="color" placeholder="Color" variant="label-hidden" value={horse.color} onchange={handleOnChange} class="slds-col slds-size_1-of-2"></lightning-input>
+          <lightning-input style="max-width: 130px;" type="text" name="Color__c" placeholder="Color" variant="label-hidden" value={horse.color} onchange={handleOnChange} class="slds-col slds-size_1-of-2"></lightning-input>
 
           <c-lookup style="max-width: 130px;"
                     onsearch={handleSearch}
                     onselectionchange={handleSelectionChange}
                     name="sire"
                     placeholder="Sire..."
-                    class="sire">
+                    class="Sire__c">
           </c-lookup>
           <c-lookup style="max-width: 130px;"
                     onsearch={handleSearch}
                     onselectionchange={handleSelectionChange}
                     name="dam"
                     placeholder="Dam..."
-                    class="dam">
+                    class="Dam__c">
           </c-lookup>
         </div>
       </td>
         <td style="vertical-align:top;">
           <div>
             <div>
-              <lightning-input name="AQHA" label="AQHA" type="checkbox" onchange={handleOnChange} uncheck> </lightning-input>
-              <lightning-input name="APHA" label="APHA" type="checkbox" onchange={handleOnChange} uncheck> </lightning-input>
-              <lightning-input name="APHC" label="APHC" type="checkbox" onchange={handleOnChange} uncheck> </lightning-input>
-              <lightning-input name="TB" label="TB" type="checkbox" onchange={handleOnChange} uncheck> </lightning-input>
+              <lightning-input name="AQHA__c" label="AQHA" type="checkbox" onchange={handleOnChange} uncheck> </lightning-input>
+              <lightning-input name="APHA__c" label="APHA" type="checkbox" onchange={handleOnChange} uncheck> </lightning-input>
+              <lightning-input name="APHC__c" label="APHC" type="checkbox" onchange={handleOnChange} uncheck> </lightning-input>
+              <lightning-input name="TB__c" label="TB" type="checkbox" onchange={handleOnChange} uncheck> </lightning-input>
             </div>
           </div>
         </td>
         <td>
           <div>
             <div>
-              <lightning-input type="checkbox" label="Competing?" name="competing" value={horse.competing} onchange={handleOnChange} uncheck> </lightning-input>
+              <lightning-input type="checkbox" label="Competing?" name="IsCompeting__c" onchange={handleOnChange} uncheck> </lightning-input>
               </br>
-              <lightning-input type="checkbox" label="Other" name="other" value={horse.other} onchange={handleOnChange} uncheck> </lightning-input>
-              <lightning-input type="text" label="Other" name="otherBreed" variant="label-hidden" value={horse.otherBreed} onchange={handleOnChange}></lightning-input>
+              <lightning-input type="checkbox" label="Other" name="Other__c" onchange={handleOnChange} uncheck> </lightning-input>
+              <lightning-input type="text" label="Other" name="Other_Breed_Association__c" variant="label-hidden" value={horse.Other_Breed_Association__c} onchange={handleOnChange}></lightning-input>
             </div>
           </div>
         </td>
@@ -61,6 +61,9 @@
           <div class="input-fields">
             <lightning-file-upload label="Upload"
                                   multiple="true"
+                                  record-id={horse.Id}
+                                  file-field-name="Guest_Record_fileupload__c"
+                                  file-field-value={encryptedToken}
                                   onuploadfinished={handleUploadFinished}
                                   class="slds-col slds-size_1-of-2">
             </lightning-file-upload>

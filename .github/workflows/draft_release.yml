@@ -1,0 +1,55 @@
+name: Capture commit history and create GitHub release
+
+on:
+  create:
+    branches:
+      - 'release/*'
+
+jobs:
+  capture_commit_history:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Determine base branch
+        id: base-branch
+        run: echo "::set-output name=base_branch::$(git merge-base origin/${{ github.ref }} origin/$(echo ${{ github.ref }} | sed 's|release/|main|g'))"
+
+      - name: Capture commit history
+        id: commit-history
+        run: |
+          git fetch --unshallow
+          echo "please summarize this Commit History into professional release notes" > release_notes.txt
+          git log --format="- %B" ${{ steps.base-branch.outputs.base_branch }}..origin/${{ github.ref }} >> release_notes.txt
+          jq -n --arg model "text-curie-001" --arg prompt "$(cat release_notes.txt)" '{"model":$model,"prompt":$prompt,"temperature":0,"max_tokens":100}' > release_notes.json
+  
+  create_release:
+    needs: capture_commit_history
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.ref }}
+          name: Release ${{ github.ref }}
+          body: ${{ steps.commit-history.outputs.release_notes }}
+
+  add_release_notes:
+    needs: create_release
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Add Release Notes
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./result.txt
+          asset_name: release-notes.txt
+          asset_content_type: text/plain
