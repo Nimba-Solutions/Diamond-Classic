@@ -10,7 +10,6 @@
 	</targets>
 	<targetConfigs>
 		<targetConfig targets="lightning__FlowScreen">
-				<property name="horses" type="apex://Horse[]" />
 		</targetConfig>
 	</targetConfigs>
 </LightningComponentBundle>
